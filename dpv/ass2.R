@@ -51,3 +51,21 @@ sales <- df %>%
   full_join(customer, by = c("Customer_Name" = "name")) %>%
   select("Order_Date_Day","customerid", "productid", "Product_Order_Price_Total") %>%
   rename(orderdate = Order_Date_Day, sales = Product_Order_Price_Total)
+
+
+
+require("RPostgreSQL" )
+
+drv <- dbDriver("PostgreSQL")
+
+#con <- dbConnect(drv, port = 5432, host = "***", 
+#                 dbname = "***", user = "***", password = "***", 
+#                 options="-c search_path=***")
+  
+# Store in DB
+  
+dbListTables(con)
+
+#dbWriteTable(con, "Product", value = product, overwrite = T, row.names = F) 
+#dbWriteTable(con, "Customer", value = customer, overwrite = T, row.names = F)
+dbWriteTable(con, "Sales", value = sales, overwrite = T, row.names = F) 
