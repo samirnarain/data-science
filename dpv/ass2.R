@@ -66,6 +66,14 @@ drv <- dbDriver("PostgreSQL")
   
 dbListTables(con)
 
-#dbWriteTable(con, "Product", value = product, overwrite = T, row.names = F) 
-#dbWriteTable(con, "Customer", value = customer, overwrite = T, row.names = F)
+dbWriteTable(con, "Product", value = product, overwrite = T, row.names = F)     # does not work, gives error because of char enc
+dbWriteTable(con, "Customer", value = customer, overwrite = T, row.names = F)   # same as above. need to fix
 dbWriteTable(con, "Sales", value = sales, overwrite = T, row.names = F) 
+
+
+dbGetQuery(con, "SELECT table_name FROM information_schema.tables WHERE table_schema='ass2'") 
+str(dbReadTable(con, c("ass2", "Customer")))      # empty for now
+str(dbReadTable(con, c("ass2", "Product")))       # empty
+str(dbReadTable(con, c("ass2", "Sales")))         # almost correct - the date is as a char. it should be date type
+
+
