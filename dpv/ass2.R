@@ -49,4 +49,5 @@ sales <- df %>%
   select(Order_Date_Day, Customer_Name, Product_Name, Product_Order_Price_Total) %>%
   full_join(product, by = c("Product_Name" = "name")) %>%
   full_join(customer, by = c("Customer_Name" = "name")) %>%
-  select("Order_Date_Day","customerid", "productid", "Product_Order_Price_Total")
+  select("Order_Date_Day","customerid", "productid", "Product_Order_Price_Total") %>%
+  rename(orderdate = Order_Date_Day, sales = Product_Order_Price_Total)
