@@ -107,3 +107,33 @@ Sales <- Main %>%
 # connect to db and write to tables
 
 
+
+require("RPostgreSQL")
+
+pw <- {
+  "***"
+}
+
+drv <- dbDriver("PostgreSQL")
+con <- dbConnect(drv, dbname = "***",
+                 host = "***", port = 5432,
+                 user = "***", password = pw,
+                 options="-c search_path=***")
+rm(pw)
+
+dbListTables(con)
+
+
+dbWriteTable(con, "Product", value = Product, overwrite = T, row.names = F)     
+dbWriteTable(con, "Customer", value = Customer, overwrite = T, row.names = F)   
+dbWriteTable(con, "ReturnStatus", value = returnStatus, overwrite = T, row.names = F) 
+dbWriteTable(con, "Sales", value = Sales, overwrite = T, row.names = F) 
+
+
+
+dbGetQuery(con, "SELECT table_name FROM information_schema.tables WHERE table_schema='ass3'") 
+str(dbReadTable(con, c("ass3", "Customer")))      
+str(dbReadTable(con, c("ass3", "Product")))       
+str(dbReadTable(con, c("ass3", "ReturnStatus")))
+str(dbReadTable(con, c("ass3", "Sales")))  
+
