@@ -29,3 +29,21 @@ Main %>%
   arrange(Profit)
 
 
+Main %>%
+  mutate(Delay = as.numeric(interval(dmy(Main$Order.Date),
+                            dmy(Main$Ship.Date))/ddays())) %>%
+  mutate(LateOrNot = ifelse(Delay < 3, "Not Late", "Late")) %>%
+  filter(LateOrNot == "Late") %>%
+  group_by(Product.Sub.Category) %>%
+  count(sort = TRUE)
+  
+
+
+Main %>%
+  mutate(Delay = as.numeric(interval(dmy(Main$Order.Date),
+                                     dmy(Main$Ship.Date))/ddays())) %>%
+  mutate(LateOrNot = ifelse(Delay < 3, "Not Late", "Late")) %>%
+  filter(LateOrNot == "Late") %>%
+  group_by(Product.Name) %>%
+  count(sort = TRUE)
+
