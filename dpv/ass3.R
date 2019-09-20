@@ -38,6 +38,19 @@ Main %>%
   count(sort = TRUE)
   
 
+Main %>%
+  full_join(Returns, type = "inner", by = 'Order.ID') %>%
+  filter(Status == "Returned") %>%
+  group_by(Product.Sub.Category) %>%
+  count(sort = T)
+
+Main %>%
+  full_join(Returns, type = "inner", by = 'Order.ID') %>%
+  filter(Status == "Returned") %>%
+  group_by(Product.Name) %>%
+  count(sort = T)
+
+
 
 Main %>%
   mutate(Delay = as.numeric(interval(dmy(Main$Order.Date),
