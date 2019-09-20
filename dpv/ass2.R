@@ -4,7 +4,8 @@ library("tidyverse")
 library("readr")
 
 df <- read_delim("data/BI_Raw_Data.csv", delim = ";", 
-                 col_names = TRUE, col_types = NULL)
+                 col_names = TRUE, col_types = NULL, 
+                 locale = locale(encoding = "ISO-8859-1"))
 
 df %>%
   group_by(Customer_Name) %>%
@@ -66,14 +67,14 @@ drv <- dbDriver("PostgreSQL")
   
 dbListTables(con)
 
-dbWriteTable(con, "Product", value = product, overwrite = T, row.names = F)     # does not work, gives error because of char enc
-dbWriteTable(con, "Customer", value = customer, overwrite = T, row.names = F)   # same as above. need to fix
+dbWriteTable(con, "Product", value = product, overwrite = T, row.names = F)     
+dbWriteTable(con, "Customer", value = customer, overwrite = T, row.names = F)   
 dbWriteTable(con, "Sales", value = sales, overwrite = T, row.names = F) 
 
 
 dbGetQuery(con, "SELECT table_name FROM information_schema.tables WHERE table_schema='ass2'") 
-str(dbReadTable(con, c("ass2", "Customer")))      # empty for now
-str(dbReadTable(con, c("ass2", "Product")))       # empty
+str(dbReadTable(con, c("ass2", "Customer")))      
+str(dbReadTable(con, c("ass2", "Product")))       
 str(dbReadTable(con, c("ass2", "Sales")))         # almost correct - the date is as a char. it should be date type
 
 
