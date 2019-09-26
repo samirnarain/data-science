@@ -30,6 +30,7 @@ Main %>%
   summarise_at(vars(Profit), sum) %>%
   arrange(Profit)
 
+# product category Late
 
 Main %>%
   mutate(Delay = as.numeric(interval(dmy(Main$Order.Date),
@@ -39,20 +40,7 @@ Main %>%
   group_by(Product.Sub.Category) %>%
   count(sort = TRUE)
   
-
-Main %>%
-  full_join(Returns, type = "inner", by = 'Order.ID') %>%
-  filter(Status == "Returned") %>%
-  group_by(Product.Sub.Category) %>%
-  count(sort = T)
-
-Main %>%
-  full_join(Returns, type = "inner", by = 'Order.ID') %>%
-  filter(Status == "Returned") %>%
-  group_by(Product.Name) %>%
-  count(sort = T)
-
-
+# products late
 
 Main %>%
   mutate(Delay = as.numeric(interval(dmy(Main$Order.Date),
@@ -61,6 +49,25 @@ Main %>%
   filter(LateOrNot == "Late") %>%
   group_by(Product.Name) %>%
   count(sort = TRUE)
+
+# product category returned
+
+Main %>%
+  full_join(Returns, type = "inner", by = 'Order.ID') %>%
+  filter(Status == "Returned") %>%
+  group_by(Product.Sub.Category) %>%
+  count(sort = T)
+
+# products returned 
+Main %>%
+  full_join(Returns, type = "inner", by = 'Order.ID') %>%
+  filter(Status == "Returned") %>%
+  group_by(Product.Name) %>%
+  count(sort = T)
+
+
+
+
 
 
 
