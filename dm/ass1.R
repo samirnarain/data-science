@@ -25,4 +25,6 @@ ggplot(data = df, aes(x=sekse, y=chol)) +
 
 
 
-
+ggplot(data = df, aes(x=alcohol, y=chol)) +
+  geom_boxplot() +
+  geom_smooth(method = "lm", formula = y~x)
