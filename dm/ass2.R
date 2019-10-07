@@ -12,6 +12,7 @@ head(df)
 
 df <- mutate(df, home = if_else(child_birth == "first line child birth, at home", 
                             "at_home", "not_at_home"))
+
 df <- mutate(df, pari = if_else(parity == 1, "primi", "multi" ))
 
 head(df)
@@ -19,21 +20,25 @@ head(df)
 df <- mutate(df, etni = if_else(etnicity == "Dutch",
                                 "Dutch", "Not Dutch"))
 
+
+# starting LM
+
 df$pari <- as.factor(df$pari)
 df$etni <- as.factor(df$etni)
-df$home <- as.factor(df$home)
 
+# 0 is at home
+# 1 is not at home
 
-# 1 is at home
-# 2 is not at home
-df$home <- as.numeric(df$home)
+df <- mutate(df, home01 = if_else(df$home == "at_home", "0", "1" ))
+df$home01 <- as.numeric(df$home01)
+
 
 head(df)
 str(df)
 
 # logistic regression model
 
-fit_lm <- glm(formula = home ~ pari + age_cat + etni + urban, data = df
+fit_lm <- glm(formula = home01 ~ pari + age_cat + etni + urban, data = df
               ,family = "binomial")
 
 summary(fit_lm)
