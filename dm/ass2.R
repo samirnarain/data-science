@@ -38,22 +38,20 @@ str(df)
 
 # logistic regression model
 
-fit_lm <- glm(formula = home01 ~ pari + age_cat + etni + urban, data = df
-              ,family = "binomial")
+fit_lm <- glm(formula = home01 ~ pari + age_cat + etni + urban, 
+              data = df, family = "binomial")
 
 summary(fit_lm)
 
-#varImp(fit, scale = FALSE)
-
 # decision tree model 
 
-fit_tree <- rpart(formula = home ~ pari + age_cat + etni + urban,
-      data= df , method = "class")
+fit_tree <- rpart(formula = home01 ~ pari + age_cat + etni + urban,
+                  data= df , method = "class")
 
 summary(fit_tree)
 
-# 1 is at home birth, and 
-# 2 is not at home birth
+# 0 is at home birth, and 
+# 1 is not at home birth
 
 rpart.plot(fit_tree, fallen.leaves = T, type = 2)
 
