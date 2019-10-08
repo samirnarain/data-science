@@ -61,3 +61,30 @@ summary(fit_tree)
 # 1 is not at home birth
 
 rpart.plot(fit_tree, fallen.leaves = T, type = 2)
+
+
+set.seed(100)
+
+trainRowNumber <- createDataPartition(df$home, p=0.8, list = F)
+
+#colnames(trainRowNumber)
+
+trainData <- df[trainRowNumber, c(2,4,8,9,10)]
+
+testData <- df[-trainRowNumber, c(2,4,8,9,10)]
+
+fit_logreg <- train(home ~ pari + age_cat + etni + urban,
+                    data=trainData, method = "glm" , family = "binomial")
+
+predicted_logreg <- predict(fit_logreg, testData)
+
+confusionMatrix(reference = testData$home, data = predicted_logreg,
+                mode='everything')
+
+
+fit_rpart <- train(home ~ pari + age_cat + etni + urban,
+                   data=trainData, method = "rpart")
+
+predicted_rpart <- predict(fit_rpart, testData)
+confusionMatrix(reference = testData$home, data = predicted_rpart,
+                mode='everything')
