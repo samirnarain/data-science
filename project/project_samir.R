@@ -44,14 +44,13 @@ proj <- mutate(proj, time.diff = as.numeric(Geplande.operatieduur) - as.numeric(
 ggplot(data = proj, aes(x=time.diff)) +
   geom_histogram(bins = 50)
 
-summary(proj)
 
 
 #proj %>%
 #  filter(Leeftijd > 70)
 
 
-
+# compute age group and BMI group 
   
 proj <- proj %>%
   mutate(age_group = case_when(
@@ -74,5 +73,4 @@ proj <- proj %>%
 proj$BMI_group <- as.factor(proj$BMI_group)
 
 
-
-# connect to the DB and write 
+summary(proj)
