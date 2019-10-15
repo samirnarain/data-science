@@ -49,7 +49,7 @@ ggplot(data = proj, aes(x=time.diff)) +
 #  filter(Leeftijd > 70)
 
 # to see impact of age on operationtime difference
-ggplot(df, aes(x=Leeftijd, y=Operatieduur.diff))+  
+ggplot(df, aes(x=Leeftijd, y=time.diff))+  
   geom_point()+
   geom_smooth()
 
