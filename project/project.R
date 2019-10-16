@@ -106,3 +106,10 @@ proj <- proj %>%
     time.diff <  -60                     ~ "Very Early"))
 
 proj$time_group <- as.factor(proj$time_group)
+
+# doesnt seem to be a helpful graph, but maybe we can try different variables for z & y
+proj %>%
+  ggplot(aes(x=time_group, y= Leeftijd)) +
+  geom_violin() +
+  scale_fill_viridis_c(alpha = .6)+
+  geom_jitter(color="black", size = 0.4, alpha=0.9)
