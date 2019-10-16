@@ -94,3 +94,15 @@ rm(pw)
 dbWriteTable(con, "Patients", value = proj, overwrite = T, row.names = F)
 
 summary(proj)
+
+
+# compute delay group
+proj <- proj %>%  
+  mutate(time_group = case_when(
+    time.diff >=  60                     ~ "Very Late",
+    time.diff >=  15 & time.diff < 60    ~ "Late but <60min",
+    time.diff >= -15 & time.diff < 15    ~ "Within 15 mins",
+    time.diff >= -60 &  time.diff < -15  ~ "Early but <60min",
+    time.diff <  -60                     ~ "Very Early"))
+
+proj$time_group <- as.factor(proj$time_group)
