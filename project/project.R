@@ -107,9 +107,19 @@ proj <- proj %>%
 
 proj$time_group <- as.factor(proj$time_group)
 
-# doesnt seem to be a helpful graph, but maybe we can try different variables for z & y
+# doesnt seem to be a helpful graph, but maybe we can try different variables for x & y
 proj %>%
   ggplot(aes(x=time_group, y= Leeftijd)) +
   geom_violin() +
   scale_fill_viridis_c(alpha = .6)+
   geom_jitter(color="black", size = 0.4, alpha=0.9)
+
+
+# write a coloums with the numver of operations planned
+proj <- mutate(proj, num_of_ops = str_count(proj$Operatietype, '\\+') + 1 )
+
+
+# attempting to separate the operations - WIP
+proj <- mutate(proj, op_types = sub(" + ", " , ", proj$Operatietype, fixed = TRUE)) 
+
+
