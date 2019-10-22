@@ -4,7 +4,7 @@
 #install.packages("lubridate")
 #install.packages("RPostgreSQL")
 #install.packages("tidyverse")
-
+#install.package("rpart.plot")
 
 require(dplyr)
 require(ggplot2)
@@ -81,18 +81,18 @@ proj$BMI_group <- as.factor(proj$BMI_group)
 
 #upload to database
 
-pw <- {
-  "***"
-}
+#pw <- {
+#  "***"
+#}
 
-drv <- dbDriver("PostgreSQL")
-con <- dbConnect(drv, dbname = "dpv1a025",
-                 host = "castle.ewi.utwente.nl", port = 5432,
-                 user = "dpv1a025", password = pw,
-                 options="-c search_path=project")
-rm(pw)
-
-dbWriteTable(con, "Patients", value = proj, overwrite = T, row.names = F)
+#drv <- dbDriver("PostgreSQL")
+#con <- dbConnect(drv, dbname = "dpv1a025",
+#                 host = "castle.ewi.utwente.nl", port = 5432,
+#                 user = "dpv1a025", password = pw,
+#                 options="-c search_path=project")
+#rm(pw)
+#
+#dbWriteTable(con, "Patients", value = proj, overwrite = T, row.names = F)
 
 summary(proj)
 
@@ -145,7 +145,7 @@ proj$op_time_group <- as.factor(proj$op_time_group)
 
 #fit_lm <- glm(formula = Operatieduur ~ num_of_ops, data = proj, family = "binomial")
 
-summary(fit_lm)
+#summary(fit_lm)
 fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietype, 
                   data = proj,
                   method = "poisson")
