@@ -12,7 +12,8 @@ require(readr)
 require(lubridate)
 require(RPostgreSQL)
 require(tidyverse)
-
+library(rpart)
+library(rpart.plot)
 
 
 proj = read.csv2(file = "data/surgical_case_durations.csv")
@@ -117,9 +118,36 @@ proj %>%
 
 # write a coloums with the numver of operations planned
 proj <- mutate(proj, num_of_ops = str_count(proj$Operatietype, '\\+') + 1 )
-
+proj$num_of_ops <- as.factor(proj$num_of_ops)
 
 # attempting to separate the operations - WIP
 proj <- mutate(proj, op_types = sub(" + ", " , ", proj$Operatietype, fixed = TRUE)) 
 
 
+# compute Operation time group
+# doing this so it can be used as a factor. in its currenct form, operatieduur is a very large factor
+proj <- proj %>%  
+  mutate(op_time_group = case_when(
+    Operatieduur >=  480                         ~ ">480",
+    Operatieduur >=  420 & Operatieduur < 480    ~ "420-480",
+    Operatieduur >=  360 & Operatieduur < 420    ~ "360-420",
+    Operatieduur >=  300 & Operatieduur < 360    ~ "300-360",
+    Operatieduur >=  240 & Operatieduur < 300    ~ "240-300",
+    Operatieduur >=  180 & Operatieduur < 240    ~ "180-240",
+    Operatieduur >=  120 & Operatieduur < 180    ~ "120-180",
+    Operatieduur >=  60  & Operatieduur < 120    ~ "60-120",
+    Operatieduur <  60                           ~ "<60"))
+
+proj$op_time_group <- as.factor(proj$op_time_group)
+
+# Using Linear Regression and rpart on the data
+# we can use the actual time of the operation and see its relation with the other variables 
+
+#fit_lm <- glm(formula = Operatieduur ~ num_of_ops, data = proj, family = "binomial")
+
+summary(fit_lm)
+fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietype, 
+                  data = proj,
+                  method = "poisson")
+summary(fit_tree)
+rpart.plot(fit_tree, fallen.leaves = T, type = 2)
