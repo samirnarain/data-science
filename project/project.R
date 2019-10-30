@@ -38,7 +38,7 @@ proj$IC.ligduur <- as.numeric(proj$IC.ligduur)
 
 
 # compute the time diff between planned duration and actual
-proj <- mutate(proj, time.diff = Geplande.operatieduur - Operatieduur)
+proj <- mutate(proj, time.diff = Operatieduur - Geplande.operatieduur)
 
 #see time difference
 ggplot(data = proj, aes(x=time.diff)) +
