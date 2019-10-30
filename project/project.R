@@ -151,3 +151,8 @@ fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietyp
                   method = "poisson")
 summary(fit_tree)
 rpart.plot(fit_tree, fallen.leaves = T, type = 2)
+
+# plots 
+plot(proj$time.diff~proj$num_of_ops , data = proj)
+
+plot(proj$Geplande.operatieduur,proj$time.diff)
