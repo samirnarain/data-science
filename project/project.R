@@ -94,7 +94,7 @@ proj <- proj %>%
     Operatieduur <  60                           ~ "<60"))
 proj$op_time_group <- as.factor(proj$op_time_group)
 
-
+proj_filtered <- proj %>% filter(Geslacht != "NULL")
 
 
 
