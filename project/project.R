@@ -94,6 +94,8 @@ proj <- proj %>%
     Operatieduur <  60                           ~ "<60"))
 proj$op_time_group <- as.factor(proj$op_time_group)
 
+# filter out 554 rows with many NA columns 
+proj_orig <- proj
 proj_filtered <- proj %>% filter(Geslacht != "NULL")
 
 
