@@ -117,7 +117,6 @@ proj <- proj %>%
     Operatieduur <   15                      ~ "<15"  ))
 proj$op_time_group <- as.factor(proj$op_time_group)
 
-# compute the group for planned opertaion time. We plan to use this later to compare predicted and planned opertaion times.
 proj <- proj %>%  
   mutate(op_planned_time_group = case_when(
     Geplande.operatieduur >= 465                               ~ ">465",
@@ -153,19 +152,118 @@ proj <- proj %>%
     Geplande.operatieduur >=  15 & Geplande.operatieduur <  30 ~ "15-30",
     Geplande.operatieduur < 15                                 ~ "<15")
   )
- proj$op_planned_time_group <- as.factor(proj$op_planned_time_group)   
+    
 
-#clearing out null rows
+
 proj_orig <- proj
+
 proj <- proj %>% filter(Geslacht != "NULL")
 
+ops_tbl <- as_tibble(proj$Operatietype) %>%
+  distinct()
+
+colnames(ops_tbl) <- c("Ops.performed")
+
+ops_tbl <- ops_tbl %>%
+  mutate(ops = str_split(ops_tbl$Ops.performed,"\\+"))
+  
+ops_tbl$Ascendensvervanging <- 0
+ops_tbl$ASD <- 0
+ops_tbl$AVP <- 0
+ops_tbl$AVR <- 0
+ops_tbl$AVR.via.minithoracotomie <- 0
+ops_tbl$Bentall.procedure <- 0
+ops_tbl$Bilobectomie.open.procedure <- 0
+ops_tbl$Bilobectomie.VATS <- 0
+ops_tbl$Biventriculaire.pacemaker <- 0
+ops_tbl$Boxlaesie <- 0
+ops_tbl$Bullectomie.met.partiele.pleurectomie <- 0
+ops_tbl$Bullectomie.met.partiÃle.pleurectomie.VATS <- 0
+ops_tbl$CABG <- 0
+ops_tbl$CABG.via.minithoracotomie <- 0
+ops_tbl$CABGPacemakerdraad.tijdelijk <- 0
+ops_tbl$Capsulotomie/capsulectomie.met.verwijderen.mammaprothese.na.augmentatie <- 0
+ops_tbl$Decorticatie.long <- 0
+ops_tbl$Decorticatie.long.VATS <- 0
+ops_tbl$Diagnostische.pleurapunctie <- 0
+ops_tbl$ECMO <- 0
+ops_tbl$Endoscopische.bullectomie.met.partiele.pleurectomie <- 0
+ops_tbl$Endoscopische.lobectomie.of.segmentresectie <- 0
+ops_tbl$Endoscopische.longbiopsie <- 0
+ops_tbl$Endoscopische.ok.empyema.thoracis <- 0
+ops_tbl$Endoscopische.wigresectie <- 0
+ops_tbl$Epicardiale.LV-lead <- 0
+ops_tbl$Excisie.aandoening.thoraxwand.VATS <- 0
+ops_tbl$Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit. <- 0
+ops_tbl$Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide <- 0
+ops_tbl$Inbrengen.LVAD.BIVAD <- 0
+ops_tbl$Inbrengen.van.stimulatie-electrode.en.aansluiten.subc..geplaatste.pacemaker <- 0
+ops_tbl$Klassieke.Aortabroek.Prothese <- 0
+ops_tbl$Klassieke.aortabuisprothese.met.zijtak.ken <- 0
+ops_tbl$Lobectomie.of.segmentresectie <- 0
+ops_tbl$Longbiopsie.VATS <- 0
+ops_tbl$Mamma.ablatio <- 0
+ops_tbl$Maze <- 0
+ops_tbl$Mediastinoscopie <- 0
+ops_tbl$Morrow <- 0
+ops_tbl$MVP <- 0
+ops_tbl$MVP.via.minithoracotomie <- 0
+ops_tbl$MVPVentrikelaneurysma <- 0
+ops_tbl$MVR <- 0
+ops_tbl$MVR.via.minithoracotomie <- 0
+ops_tbl$Nuss.bar.verwijderen <- 0
+ops_tbl$Nuss-procedure <- 0
+ops_tbl$Ok.empyema.thoracis <- 0
+ops_tbl$Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal. <- 0
+ops_tbl$Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie <- 0
+ops_tbl$Operatie.wegens.een.perforerende.hartverwonding. <- 0
+ops_tbl$Operatieve.behandeling.van.een.empyema.thoracis.open.procedure. <- 0
+ops_tbl$Operatieve.behandeling.van.een.empyema.VATS. <- 0
+ops_tbl$Operatieve.verwijdering.gezwellenRavitch-procedure <- 0
+ops_tbl$Partiele.pericardresectie.via.thoracotomie. <- 0
+ops_tbl$PartiÃle.pleurectomie <- 0
+ops_tbl$Percardiectomie.subtotaal <- 0
+ops_tbl$Pericard.drainage <- 0
+ops_tbl$Pericard-fenestratie.via.VATS. <- 0
+ops_tbl$Plaatsen.epicardiale.electrode.na.openen.pericard <- 0
+ops_tbl$Pleurabiopsie. <- 0
+ops_tbl$Pleurectomie.VATS <- 0
+ops_tbl$Pleuro-pneumonectomie.open.procedure. <- 0
+ops_tbl$Pneumonectomie <- 0
+ops_tbl$Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure. <- 0
+ops_tbl$Pneumonectomie.open.procedure. <- 0
+ops_tbl$Poging.tot.VATS.PVI <- 0
+ops_tbl$Proefthoracotomie <- 0
+ops_tbl$PVI <- 0
+ops_tbl$Ravitch-procedure <- 0
+ops_tbl$Refixatie.sternum <- 0
+ops_tbl$Rethoracotomie <- 0
+ops_tbl$Sleeve.resectie <- 0
+ops_tbl$Sleeve-resectie.VATS. <- 0
+ops_tbl$Staaldraden.verwijderen <- 0
+ops_tbl$TAVI-1 <- 0
+ops_tbl$TAVI-II <- 0
+ops_tbl$Tumor.atrium <- 0
+ops_tbl$Tumor.mediastinum <- 0
+ops_tbl$Tumor.ventrikel <- 0
+ops_tbl$TVP <- 0
+ops_tbl$VATS.Boxlaesie <- 0
+ops_tbl$VATS.PVI <- 0
+ops_tbl$Ventrikelaneurysma <- 0
+ops_tbl$Vervangen.pacemaker.of.ICD <- 0
+ops_tbl$Vervanging.aorta.ascendens.met.aortaboog <- 0
+ops_tbl$Vervanging.aortawortel <- 0
+ops_tbl$Vervanging.aortawortel.aorta.ascendens.en.boog <- 0
+ops_tbl$Verwijderen.Corpus.Alienum <- 0
+ops_tbl$Verwijderen.pacemaker.of.ICD <- 0
+ops_tbl$VSD <- 0
+ops_tbl$Wigresectie <- 0
+ops_tbl$Wigresectie.VATS <- 0
+ops_tbl$Wondtoilet <- 0
 
 
-
-
-
-
-
+#ops_tbl <- ops_tbl %>%
+#  mutate(Wondtoilet = ifelse(grep("CABG", Ops.performed), 1, 0))
 
 
 
@@ -186,4 +284,7 @@ proj <- proj %>% filter(Geslacht != "NULL")
 #                  options="-c search_path=project")
 # rm(pw)
 # 
-# dbWriteTable(con, "Patients", value = proj, overwrite = T, row.names = F)
+# dbWriteTable(con, "Operations", value = ops_tbl, overwrite = T, row.names = F)
+ 
+              
+              
