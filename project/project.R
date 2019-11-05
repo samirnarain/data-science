@@ -153,11 +153,10 @@ proj <- proj %>%
     Geplande.operatieduur >=  15 & Geplande.operatieduur <  30 ~ "15-30",
     Geplande.operatieduur < 15                                 ~ "<15")
   )
-    
+ proj$op_planned_time_group <- as.factor(proj$op_planned_time_group)   
 
-
+#clearing out null rows
 proj_orig <- proj
-
 proj <- proj %>% filter(Geslacht != "NULL")
 
 
