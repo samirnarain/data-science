@@ -203,7 +203,7 @@ ops_tbl <- ops_tbl %>% mutate(Inbrengen.endocardiale.electrode.en.bevestigen.twe
 ops_tbl <- ops_tbl %>% mutate(Inbrengen.LVAD.BIVAD = ifelse(grepl("Inbrengen LVAD / BIVAD", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker = ifelse(grepl("Inbrengen van stimulatie-electrode en aansluiten subc. geplaatste pacemaker", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Klassieke.Aortabroek.Prothese = ifelse(grepl("Klassieke Aortabroek Prothese", Operatietype) == TRUE, 1, 0))
-ops_tbl <- ops_tbl %>% mutate(Klassieke.aortabuisprothese.met.zijtak = ifelse(grepl("Klassieke aortabuisprothese met zijtak(ken)", Operatietype) == TRUE, 1, 0))
+ops_tbl <- ops_tbl %>% mutate(Klassieke.aortabuisprothese.met.zijtak = ifelse(grepl("Klassieke aortabuisprothese met zijtak", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Lobectomie.of.segmentresectie = ifelse(grepl("Lobectomie of segmentresectie", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Longbiopsie.VATS = ifelse(grepl("Longbiopsie, VATS", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Mamma.ablatio = ifelse(grepl("Mamma ablatio", Operatietype) == TRUE, 1, 0))
@@ -226,7 +226,7 @@ ops_tbl <- ops_tbl %>% mutate(Operatieve.behandeling.van.een.empyema.VATS = ifel
 ops_tbl <- ops_tbl %>% mutate(Operatieve.verwijdering.gezwellenRavitch.procedure = ifelse(grepl("Operatieve verwijdering gezwellenRavitch-procedure", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Partiele.pericardresectie.via.thoracotomie = ifelse(grepl("Partiele pericardresectie via thoracotomie.", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Partiele.pleurectomie = ifelse(grepl("Partiële pleurectomie", Operatietype) == TRUE, 1, 0))
-ops_tbl <- ops_tbl %>% mutate(Percardiectomie = ifelse(grepl("Percardiectomie (subtotaal)", Operatietype) == TRUE, 1, 0))
+ops_tbl <- ops_tbl %>% mutate(Percardiectomie = ifelse(grepl("Percardiectomie", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Pericard.drainage = ifelse(grepl("Pericard drainage", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Pericard.fenestratie.via.VATS = ifelse(grepl("Pericard-fenestratie via VATS.", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Plaatsen.epicardiale.electrode.na.openen.pericard = ifelse(grepl("Plaatsen epicardiale electrode na openen pericard", Operatietype) == TRUE, 1, 0))
@@ -264,6 +264,7 @@ ops_tbl <- ops_tbl %>% mutate(VSD = ifelse(grepl("VSD", Operatietype) == TRUE, 1
 ops_tbl <- ops_tbl %>% mutate(Wigresectie = ifelse(grepl("Wigresectie", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Wigresectie.VATS = ifelse(grepl("Wigresectie, VATS", Operatietype) == TRUE, 1, 0))
 ops_tbl <- ops_tbl %>% mutate(Wondtoilet = ifelse(grepl("Wondtoilet", Operatietype) == TRUE, 1, 0))
+
 
 #as factors
 ops_tbl$Ascendensvervanging <- as.factor(ops_tbl$Ascendensvervanging)
