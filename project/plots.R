@@ -36,4 +36,9 @@ proj %>%
 
 
 
+plot(proj$time.diff~proj$num_of_ops , data = proj)
+
+plot(proj$Geplande.operatieduur,proj$time.diff)
+
+
 
