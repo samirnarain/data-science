@@ -1,6 +1,4 @@
-source("project_final.R")
-
-
+source("project.R")
 
 
 # Using Linear Regression and rpart on the data
@@ -16,8 +14,5 @@ fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietyp
 summary(fit_tree)
 rpart.plot(fit_tree, fallen.leaves = T, type = 2)
 
-# plots 
-plot(proj$time.diff~proj$num_of_ops , data = proj)
 
-plot(proj$Geplande.operatieduur,proj$time.diff)
 
