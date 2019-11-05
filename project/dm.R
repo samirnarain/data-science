@@ -30,5 +30,16 @@ fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietyp
 summary(fit_tree)
 rpart.plot(fit_tree, fallen.leaves = T, type = 2)
 
+### fitted values fomr LM
 
+sig_vars_ex_ops <- Operatieduur ~ num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM
 
+fit_lm <- lm(formula = sig_vars_ex_ops, data = proj)
+summary(fit_lm)
+fitted_lm <- fitted(fit_lm)
+proj <- mutate(proj,fitted_lm)
+
+fit_glm_poisson <- glm(formula = sig_vars_ex_ops, data = proj, family = "poisson")
+summary(fit_glm_poisson)
+fitted_glm <- fitted(fit_glm_poisson)
+proj <- mutate(proj,fitted_glm)
