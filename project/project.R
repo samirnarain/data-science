@@ -94,68 +94,14 @@ proj <- proj %>%
     Operatieduur <  60                           ~ "<60"))
 proj$op_time_group <- as.factor(proj$op_time_group)
 
-# filter out 554 rows with many NA columns 
+
 proj_orig <- proj
-proj_filtered <- proj %>% filter(Geslacht != "NULL")
+
+proj <- proj %>% filter(Geslacht != "NULL")
 
 
 
 
-
-
-
-
-
-#PLOTS
-
-ggplot(proj, aes(x=time.diff)) + geom_histogram(bins = 50)
-summary(proj$time.diff)
-summary(proj)
-glimpse(proj)
-
-#try to see if daytime impacts time diff
-# ggplot(proj, aes(x=Dagdeel, y=time.diff))+
-#   geom_bar(stat = "identity")
-
-# to see impact of age on operationtime difference
-ggplot(proj, aes(x=Leeftijd, y=time.diff))+  
-  geom_point()+
-  geom_smooth()
-
-# doesnt seem to be a helpful graph, but maybe we can try different variables for x & y
-proj %>%
-  ggplot(aes(x=time_group, y= Leeftijd)) +
-  geom_violin() +
-  scale_fill_viridis_c(alpha = .6)+
-  geom_jitter(color="black", size = 0.4, alpha=0.9)
-
-
-
-
-
-
-
-
-
-
-
-# Using Linear Regression and rpart on the data
-
-# we can use the actual time of the operation and see its relation with the other variables 
-
-fit_lm <- glm(formula = Operatieduur ~ num_of_ops, data = proj, family = "gaussian")
-summary(fit_lm)
-
-fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietype, 
-                  data = proj,
-                  method = "poisson")
-summary(fit_tree)
-rpart.plot(fit_tree, fallen.leaves = T, type = 2)
-
-# plots 
-plot(proj$time.diff~proj$num_of_ops , data = proj)
-
-plot(proj$Geplande.operatieduur,proj$time.diff)
 
 
 
