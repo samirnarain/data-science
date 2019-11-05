@@ -1,4 +1,4 @@
-source("project_final.R")
+source("project.R")
 
 
 #PLOTS
@@ -26,7 +26,10 @@ proj %>%
 
 
 
-
+proj %>%
+  ggplot(aes(x=Chirurg, y= time.diff)) +
+  geom_boxplot() +
+  coord_flip()
 
 
 
