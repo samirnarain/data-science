@@ -83,16 +83,77 @@ proj <- mutate(proj, op_types = sub(" + ", " , ", proj$Operatietype, fixed = TRU
 # doing this so it can be used as a factor. in its currenct form, operatieduur is a very large factor
 proj <- proj %>%  
   mutate(op_time_group = case_when(
-    Operatieduur >=  480                         ~ ">480",
-    Operatieduur >=  420 & Operatieduur < 480    ~ "420-480",
-    Operatieduur >=  360 & Operatieduur < 420    ~ "360-420",
-    Operatieduur >=  300 & Operatieduur < 360    ~ "300-360",
-    Operatieduur >=  240 & Operatieduur < 300    ~ "240-300",
-    Operatieduur >=  180 & Operatieduur < 240    ~ "180-240",
-    Operatieduur >=  120 & Operatieduur < 180    ~ "120-180",
-    Operatieduur >=  60  & Operatieduur < 120    ~ "60-120",
-    Operatieduur <  60                           ~ "<60"))
+    Operatieduur >= 465                      ~ ">465",
+    Operatieduur >= 450 & Operatieduur < 465 ~ "450-465",
+    Operatieduur >= 435 & Operatieduur < 450 ~ "435-450",
+    Operatieduur >= 420 & Operatieduur < 435 ~ "420-435",
+    Operatieduur >= 405 & Operatieduur < 420 ~ "405-420",
+    Operatieduur >= 390 & Operatieduur < 405 ~ "390-405",
+    Operatieduur >= 375 & Operatieduur < 390 ~ "375-390",
+    Operatieduur >= 360 & Operatieduur < 375 ~ "360-375",
+    Operatieduur >= 345 & Operatieduur < 360 ~ "345-360",
+    Operatieduur >= 330 & Operatieduur < 345 ~ "330-345",
+    Operatieduur >= 315 & Operatieduur < 330 ~ "315-330",
+    Operatieduur >= 300 & Operatieduur < 315 ~ "300-315",
+    Operatieduur >= 285 & Operatieduur < 300 ~ "285-300",
+    Operatieduur >= 270 & Operatieduur < 285 ~ "270-285",
+    Operatieduur >= 255 & Operatieduur < 270 ~ "255-270",
+    Operatieduur >= 240 & Operatieduur < 255 ~ "240-255",
+    Operatieduur >= 225 & Operatieduur < 240 ~ "225-240",
+    Operatieduur >= 210 & Operatieduur < 225 ~ "210-225",
+    Operatieduur >= 195 & Operatieduur < 210 ~ "195-210",
+    Operatieduur >= 180 & Operatieduur < 195 ~ "180-195",
+    Operatieduur >= 165 & Operatieduur < 180 ~ "165-180",
+    Operatieduur >= 150 & Operatieduur < 165 ~ "150-165",
+    Operatieduur >= 135 & Operatieduur < 150 ~ "135-150",
+    Operatieduur >= 120 & Operatieduur < 135 ~ "120-135",
+    Operatieduur >= 105 & Operatieduur < 120 ~ "105-120",
+    Operatieduur >=  90 & Operatieduur < 105 ~ "90-105",
+    Operatieduur >=  75 & Operatieduur <  90 ~ "75-90",
+    Operatieduur >=  60 & Operatieduur <  75 ~ "60-75",
+    Operatieduur >=  45 & Operatieduur <  60 ~ "45-60",
+    Operatieduur >=  30 & Operatieduur <  45 ~ "30-45",
+    Operatieduur >=  15 & Operatieduur <  30 ~ "15-30",
+    Operatieduur <   15                      ~ "<15"  ))
 proj$op_time_group <- as.factor(proj$op_time_group)
+
+# compute the group for planned opertaion time. We plan to use this later to compare predicted and planned opertaion times.
+proj <- proj %>%  
+  mutate(op_planned_time_group = case_when(
+    Geplande.operatieduur >= 465                               ~ ">465",
+    Geplande.operatieduur >= 450 & Geplande.operatieduur < 465 ~ "450-465",
+    Geplande.operatieduur >= 435 & Geplande.operatieduur < 450 ~ "435-450",
+    Geplande.operatieduur >= 420 & Geplande.operatieduur < 435 ~ "420-435",
+    Geplande.operatieduur >= 405 & Geplande.operatieduur < 420 ~ "405-420",
+    Geplande.operatieduur >= 390 & Geplande.operatieduur < 405 ~ "390-405",
+    Geplande.operatieduur >= 375 & Geplande.operatieduur < 390 ~ "375-390",
+    Geplande.operatieduur >= 360 & Geplande.operatieduur < 375 ~ "360-375",
+    Geplande.operatieduur >= 345 & Geplande.operatieduur < 360 ~ "345-360",
+    Geplande.operatieduur >= 330 & Geplande.operatieduur < 345 ~ "330-345",
+    Geplande.operatieduur >= 315 & Geplande.operatieduur < 330 ~ "315-330",
+    Geplande.operatieduur >= 300 & Geplande.operatieduur < 315 ~ "300-315",
+    Geplande.operatieduur >= 285 & Geplande.operatieduur < 300 ~ "285-300",
+    Geplande.operatieduur >= 270 & Geplande.operatieduur < 285 ~ "270-285",
+    Geplande.operatieduur >= 255 & Geplande.operatieduur < 270 ~ "255-270",
+    Geplande.operatieduur >= 240 & Geplande.operatieduur < 255 ~ "240-255",
+    Geplande.operatieduur >= 225 & Geplande.operatieduur < 240 ~ "225-240",
+    Geplande.operatieduur >= 210 & Geplande.operatieduur < 225 ~ "210-225",
+    Geplande.operatieduur >= 195 & Geplande.operatieduur < 210 ~ "195-210",
+    Geplande.operatieduur >= 180 & Geplande.operatieduur < 195 ~ "180-195",
+    Geplande.operatieduur >= 165 & Geplande.operatieduur < 180 ~ "165-180",
+    Geplande.operatieduur >= 150 & Geplande.operatieduur < 165 ~ "150-165",
+    Geplande.operatieduur >= 135 & Geplande.operatieduur < 150 ~ "135-150",
+    Geplande.operatieduur >= 120 & Geplande.operatieduur < 135 ~ "120-135",
+    Geplande.operatieduur >= 105 & Geplande.operatieduur < 120 ~ "105-120",
+    Geplande.operatieduur >=  90 & Geplande.operatieduur < 105 ~ "90-105",
+    Geplande.operatieduur >=  75 & Geplande.operatieduur <  90 ~ "75-90",
+    Geplande.operatieduur >=  60 & Geplande.operatieduur <  75 ~ "60-75",
+    Geplande.operatieduur >=  45 & Geplande.operatieduur <  60 ~ "45-60",
+    Geplande.operatieduur >=  30 & Geplande.operatieduur <  45 ~ "30-45",
+    Geplande.operatieduur >=  15 & Geplande.operatieduur <  30 ~ "15-30",
+    Geplande.operatieduur < 15                                 ~ "<15")
+  )
+    
 
 
 proj_orig <- proj
