@@ -3,6 +3,22 @@ source("project.R")
 
 # Using Linear Regression and rpart on the data
 
+ops_fusion <- proj %>%
+  full_join(ops_tbl, type = "inner", by = 'ID')
+
+fit_tree <- rpart(op_time_group ~ 
+                  Ascendensvervanging+ASD+AVP+AVR+AVR.via.minithoracotomie+Bentall.procedure+Bilobectomie.open.procedure+Bilobectomie.VATS+Biventriculaire.pacemaker+Boxlaesie+Bullectomie.met.partiele.pleurectomie+Bullectomie.met.partiele.pleurectomie.VATS+CABG+CABG.via.minithoracotomie+CABGPacemakerdraad.tijdelijk+Capsulotomie.capsulectomie.met.verwijderen.mammaprothese.na.augmentatie+Decorticatie.long+Decorticatie.long.VATS+Diagnostische.pleurapunctie+ECMO+Endoscopische.bullectomie.met.partiele.pleurectomie+Endoscopische.lobectomie.of.segmentresectie+Endoscopische.longbiopsie+Endoscopische.ok.empyema.thoracis+Endoscopische.wigresectie+Epicardiale.LV.lead+Excisie.aandoening.thoraxwand.VATS+Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit+Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide+Inbrengen.LVAD.BIVAD+Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker+Klassieke.Aortabroek.Prothese+Klassieke.aortabuisprothese.met.zijtak+Lobectomie.of.segmentresectie+Longbiopsie.VATS+Mamma.ablatio+Maze+Mediastinoscopie+Morrow+MVP+MVP.via.minithoracotomie+MVPVentrikelaneurysma+MVR+MVR.via.minithoracotomie+Nuss.bar.verwijderen+Nuss.procedure+Ok.empyema.thoracis+Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal+Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie+Operatie.wegens.een.perforerende.hartverwonding+Operatieve.behandeling.van.een.empyema.thoracis.open.procedure+Operatieve.behandeling.van.een.empyema.VATS+Operatieve.verwijdering.gezwellenRavitch.procedure+Partiele.pericardresectie.via.thoracotomie+Partiele.pleurectomie+Percardiectomie+Pericard.drainage+Pericard.fenestratie.via.VATS+Plaatsen.epicardiale.electrode.na.openen.pericard+Pleurabiopsie+Pleurectomie.VATS+Pleuro.pneumonectomie.open.procedure+Pneumonectomie+Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure+Pneumonectomie.open.procedure+Poging.tot.VATS.PVI+Proefthoracotomie+PVI+Ravitch.procedure+Refixatie.sternum+Rethoracotomie+Sleeve.resectie+Sleeve.resectie.VATS+Staaldraden.verwijderen+TAVI.1+TAVI.II+Tumor.atrium+Tumor.mediastinum+Tumor.ventrikel+TVP+VATS.Boxlaesie+VATS.PVI+Ventrikelaneurysma+Vervangen.pacemaker.of.ICD+Vervanging.aorta.ascendens.met.aortaboog+Vervanging.aortawortel+Vervanging.aortawortel.aorta.ascendens.en.boog+Verwijderen.Corpus.Alienum+Verwijderen.pacemaker.of.ICD+VSD+Wigresectie+Wigresectie.VATS+Wondtoilet+
+                  num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM, 
+                  data = ops_fusion,
+                  method = "class",
+                  # minsplit = 10,
+                  # minbucket = 1,
+                  # cp = 0.001,
+                  # maxdepth = 20
+)
+
+
+
 # we can use the actual time of the operation and see its relation with the other variables 
 
 fit_lm <- glm(formula = Operatieduur ~ num_of_ops, data = proj, family = "gaussian")
