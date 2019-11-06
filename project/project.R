@@ -32,7 +32,6 @@ proj$Ziekenhuis.ligduur <- as.numeric(proj$Ziekenhuis.ligduur)
 proj$IC.ligduur <- as.numeric(proj$IC.ligduur)
 proj$Euroscore1 <- as.numeric(proj$Euroscore1)
 proj$Euroscore2 <- as.numeric(proj$Euroscore2)
-proj$Euroscore2 <- as.numeric(proj$Euroscore2)
 proj$Leeftijd <- as.numeric(proj$Leeftijd)
 sapply(proj, function(x) sum(is.na(x)))
 
