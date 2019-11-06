@@ -55,7 +55,15 @@ predict_rf_diff <- proj$Operatieduur - predict_rf_rounded
 proj <- mutate(proj,predict_rf_diff)
 fit_rf
 
+## root mean sqare errors for the predicted vales 
+## and the planned value - clear difference
 
+RMSE(fitted_lm,proj$Operatieduur)
+RMSE(fitted_glm,proj$Operatieduur)
+RMSE(predict_rf,proj$Operatieduur)
+RMSE(rpart_predict,proj$Operatieduur)
+
+RMSE(proj$Geplande.operatieduur,proj$Operatieduur)
 
 
 #Comparison GLM, LM, Tree, Random Forest and actual planned Time
