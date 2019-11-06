@@ -1,68 +1,44 @@
 source("project.R")
 
-
+#Preparaion for LM
 # Using Linear Regression and rpart on the data
-
 ops_fusion <- proj %>%
   full_join(ops_tbl, type = "inner", by = 'ID')
 
-fit_tree <- rpart(op_time_group ~ 
-                  Ascendensvervanging+ASD+AVP+AVR+AVR.via.minithoracotomie+Bentall.procedure+Bilobectomie.open.procedure+Bilobectomie.VATS+Biventriculaire.pacemaker+Boxlaesie+Bullectomie.met.partiele.pleurectomie+Bullectomie.met.partiele.pleurectomie.VATS+CABG+CABG.via.minithoracotomie+CABGPacemakerdraad.tijdelijk+Capsulotomie.capsulectomie.met.verwijderen.mammaprothese.na.augmentatie+Decorticatie.long+Decorticatie.long.VATS+Diagnostische.pleurapunctie+ECMO+Endoscopische.bullectomie.met.partiele.pleurectomie+Endoscopische.lobectomie.of.segmentresectie+Endoscopische.longbiopsie+Endoscopische.ok.empyema.thoracis+Endoscopische.wigresectie+Epicardiale.LV.lead+Excisie.aandoening.thoraxwand.VATS+Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit+Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide+Inbrengen.LVAD.BIVAD+Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker+Klassieke.Aortabroek.Prothese+Klassieke.aortabuisprothese.met.zijtak+Lobectomie.of.segmentresectie+Longbiopsie.VATS+Mamma.ablatio+Maze+Mediastinoscopie+Morrow+MVP+MVP.via.minithoracotomie+MVPVentrikelaneurysma+MVR+MVR.via.minithoracotomie+Nuss.bar.verwijderen+Nuss.procedure+Ok.empyema.thoracis+Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal+Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie+Operatie.wegens.een.perforerende.hartverwonding+Operatieve.behandeling.van.een.empyema.thoracis.open.procedure+Operatieve.behandeling.van.een.empyema.VATS+Operatieve.verwijdering.gezwellenRavitch.procedure+Partiele.pericardresectie.via.thoracotomie+Partiele.pleurectomie+Percardiectomie+Pericard.drainage+Pericard.fenestratie.via.VATS+Plaatsen.epicardiale.electrode.na.openen.pericard+Pleurabiopsie+Pleurectomie.VATS+Pleuro.pneumonectomie.open.procedure+Pneumonectomie+Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure+Pneumonectomie.open.procedure+Poging.tot.VATS.PVI+Proefthoracotomie+PVI+Ravitch.procedure+Refixatie.sternum+Rethoracotomie+Sleeve.resectie+Sleeve.resectie.VATS+Staaldraden.verwijderen+TAVI.1+TAVI.II+Tumor.atrium+Tumor.mediastinum+Tumor.ventrikel+TVP+VATS.Boxlaesie+VATS.PVI+Ventrikelaneurysma+Vervangen.pacemaker.of.ICD+Vervanging.aorta.ascendens.met.aortaboog+Vervanging.aortawortel+Vervanging.aortawortel.aorta.ascendens.en.boog+Verwijderen.Corpus.Alienum+Verwijderen.pacemaker.of.ICD+VSD+Wigresectie+Wigresectie.VATS+Wondtoilet+
-                  num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM, 
-                  data = ops_fusion,
-                  method = "class",
-                  # minsplit = 10,
-                  # minbucket = 1,
-                  # cp = 0.001,
-                  # maxdepth = 20
-)
+#FORMULA
+imp_data_and_ops <- Operatieduur ~ ASD +AVP +AVR +AVR.via.minithoracotomie +Ascendensvervanging +Bentall.procedure +Bilobectomie.open.procedure +Biventriculaire.pacemaker +Boxlaesie +Bullectomie.met.partiele.pleurectomie +CABG +CABG.via.minithoracotomie +CABGPacemakerdraad.tijdelijk +Decorticatie.long +Decorticatie.long.VATS +Diagnostische.pleurapunctie +ECMO +Endoscopische.lobectomie.of.segmentresectie +Endoscopische.ok.empyema.thoracis +Epicardiale.LV.lead +Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit +Inbrengen.LVAD.BIVAD +Klassieke.Aortabroek.Prothese +Klassieke.aortabuisprothese.met.zijtak +Lobectomie.of.segmentresectie +MVP +MVP.via.minithoracotomie +MVPVentrikelaneurysma +MVR +MVR.via.minithoracotomie +Mamma.ablatio +Maze +Mediastinoscopie +Morrow +Nuss.procedure +Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal +Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie +Operatie.wegens.een.perforerende.hartverwonding +Operatieve.behandeling.van.een.empyema.VATS +PVI +Partiele.pericardresectie.via.thoracotomie +Percardiectomie +Pericard.drainage +Plaatsen.epicardiale.electrode.na.openen.pericard +Pleurabiopsie +Pleuro.pneumonectomie.open.procedure +Pneumonectomie +Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure +Pneumonectomie.open.procedure +Poging.tot.VATS.PVI +Proefthoracotomie +Ravitch.procedure +Rethoracotomie +Sleeve.resectie +Sleeve.resectie.VATS +TAVI.II +TVP +Tumor.atrium +Tumor.mediastinum +Tumor.ventrikel +VATS.Boxlaesie +VATS.PVI +VSD +Ventrikelaneurysma +Vervangen.pacemaker.of.ICD +Vervanging.aorta.ascendens.met.aortaboog +Vervanging.aortawortel +Vervanging.aortawortel.aorta.ascendens.en.boog +Verwijderen.Corpus.Alienum +Verwijderen.pacemaker.of.ICD +Wigresectie +Wondtoilet+
+  
+  num_of_ops + Anesthesioloog + OK + Chirurg + Benadering +
+  Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie + 
+  Aantal.anastomosen + HLM+Leeftijd+  IC.ligduur+AF+Dagdeel+
+  Geslacht+Chronische.longziekte+Extracardiale.vaatpathie+Kritische.preoperatieve.status+
+  Myocard.infact..90.dagen+Euroscore1+Ziekenhuis.ligduur+IC.ligduur+Hypercholesterolemie
 
-
-
-# we can use the actual time of the operation and see its relation with the other variables 
-
-fit_lm <- glm(formula = Operatieduur ~ num_of_ops, data = proj, family = "gaussian")
+#LM
+fit_lm <- lm(formula = imp_data_and_ops, data = ops_fusion)
 summary(fit_lm)
-
-fit_tree <- rpart(formula = op_time_group ~ num_of_ops + age_group + Operatietype, 
-                  data = proj,
-                  method = "poisson")
-summary(fit_tree)
-rpart.plot(fit_tree, fallen.leaves = T, type = 2)
-
-### fitted values fomr LM
-
-sig_vars_ex_ops <- Operatieduur ~ num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM
-
-fit_lm <- lm(formula = sig_vars_ex_ops, data = proj)
-summary(fit_lm)
+#preditcion out of LM
 fitted_lm <- fitted(fit_lm)
 proj <- mutate(proj,fitted_lm)
+fitted_lm_diff <- proj$Operatieduur - fitted_lm
+proj <- mutate(proj,fitted_lm_diff)
 
-fit_glm_poisson <- glm(formula = sig_vars_ex_ops, data = proj, family = "poisson")
+#GLM poisson
+fit_glm_poisson <- glm(formula = imp_data_and_ops, data = ops_fusion, family = "poisson")
 summary(fit_glm_poisson)
+#prediction out of GLM
 fitted_glm <- fitted(fit_glm_poisson)
 proj <- mutate(proj,fitted_glm)
+fitted_glm_diff <- proj$Operatieduur - fitted_glm
+proj <- mutate(proj,fitted_glm_diff)
 
-#fitted values for LM
-imp1_data_and_ops <- Operatieduur ~ Ascendensvervanging+ASD+AVP+AVR+AVR.via.minithoracotomie+Bentall.procedure+Bilobectomie.open.procedure+Bilobectomie.VATS+Biventriculaire.pacemaker+Boxlaesie+Bullectomie.met.partiele.pleurectomie+Bullectomie.met.partiele.pleurectomie.VATS+CABG+CABG.via.minithoracotomie+CABGPacemakerdraad.tijdelijk+Capsulotomie.capsulectomie.met.verwijderen.mammaprothese.na.augmentatie+Decorticatie.long+Decorticatie.long.VATS+Diagnostische.pleurapunctie+ECMO+Endoscopische.bullectomie.met.partiele.pleurectomie+Endoscopische.lobectomie.of.segmentresectie+Endoscopische.longbiopsie+Endoscopische.ok.empyema.thoracis+Endoscopische.wigresectie+Epicardiale.LV.lead+Excisie.aandoening.thoraxwand.VATS+Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit+Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide+Inbrengen.LVAD.BIVAD+Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker+Klassieke.Aortabroek.Prothese+Klassieke.aortabuisprothese.met.zijtak+Lobectomie.of.segmentresectie+Longbiopsie.VATS+Mamma.ablatio+Maze+Mediastinoscopie+Morrow+MVP+MVP.via.minithoracotomie+MVPVentrikelaneurysma+MVR+MVR.via.minithoracotomie+Nuss.bar.verwijderen+Nuss.procedure+Ok.empyema.thoracis+Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal+Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie+Operatie.wegens.een.perforerende.hartverwonding+Operatieve.behandeling.van.een.empyema.thoracis.open.procedure+Operatieve.behandeling.van.een.empyema.VATS+Operatieve.verwijdering.gezwellenRavitch.procedure+Partiele.pericardresectie.via.thoracotomie+Partiele.pleurectomie+Percardiectomie+Pericard.drainage+Pericard.fenestratie.via.VATS+Plaatsen.epicardiale.electrode.na.openen.pericard+Pleurabiopsie+Pleurectomie.VATS+Pleuro.pneumonectomie.open.procedure+Pneumonectomie+Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure+Pneumonectomie.open.procedure+Poging.tot.VATS.PVI+Proefthoracotomie+PVI+Ravitch.procedure+Refixatie.sternum+Rethoracotomie+Sleeve.resectie+Sleeve.resectie.VATS+Staaldraden.verwijderen+TAVI.1+TAVI.II+Tumor.atrium+Tumor.mediastinum+Tumor.ventrikel+TVP+VATS.Boxlaesie+VATS.PVI+Ventrikelaneurysma+Vervangen.pacemaker.of.ICD+Vervanging.aorta.ascendens.met.aortaboog+Vervanging.aortawortel+Vervanging.aortawortel.aorta.ascendens.en.boog+Verwijderen.Corpus.Alienum+Verwijderen.pacemaker.of.ICD+VSD+Wigresectie+Wigresectie.VATS+Wondtoilet+
-  num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM
-imp2_data_and_ops <- Operatieduur ~ Ascendensvervanging+ASD+AVP+AVR+AVR.via.minithoracotomie+Bentall.procedure+Bilobectomie.open.procedure+Bilobectomie.VATS+Biventriculaire.pacemaker+Boxlaesie+Bullectomie.met.partiele.pleurectomie+Bullectomie.met.partiele.pleurectomie.VATS+CABG+CABG.via.minithoracotomie+CABGPacemakerdraad.tijdelijk+Capsulotomie.capsulectomie.met.verwijderen.mammaprothese.na.augmentatie+Decorticatie.long+Decorticatie.long.VATS+Diagnostische.pleurapunctie+ECMO+Endoscopische.bullectomie.met.partiele.pleurectomie+Endoscopische.lobectomie.of.segmentresectie+Endoscopische.longbiopsie+Endoscopische.ok.empyema.thoracis+Endoscopische.wigresectie+Epicardiale.LV.lead+Excisie.aandoening.thoraxwand.VATS+Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit+Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide+Inbrengen.LVAD.BIVAD+Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker+Klassieke.Aortabroek.Prothese+Klassieke.aortabuisprothese.met.zijtak+Lobectomie.of.segmentresectie+Longbiopsie.VATS+Mamma.ablatio+Maze+Mediastinoscopie+Morrow+MVP+MVP.via.minithoracotomie+MVPVentrikelaneurysma+MVR+MVR.via.minithoracotomie+Nuss.bar.verwijderen+Nuss.procedure+Ok.empyema.thoracis+Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal+Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie+Operatie.wegens.een.perforerende.hartverwonding+Operatieve.behandeling.van.een.empyema.thoracis.open.procedure+Operatieve.behandeling.van.een.empyema.VATS+Operatieve.verwijdering.gezwellenRavitch.procedure+Partiele.pericardresectie.via.thoracotomie+Partiele.pleurectomie+Percardiectomie+Pericard.drainage+Pericard.fenestratie.via.VATS+Plaatsen.epicardiale.electrode.na.openen.pericard+Pleurabiopsie+Pleurectomie.VATS+Pleuro.pneumonectomie.open.procedure+Pneumonectomie+Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure+Pneumonectomie.open.procedure+Poging.tot.VATS.PVI+Proefthoracotomie+PVI+Ravitch.procedure+Refixatie.sternum+Rethoracotomie+Sleeve.resectie+Sleeve.resectie.VATS+Staaldraden.verwijderen+TAVI.1+TAVI.II+Tumor.atrium+Tumor.mediastinum+Tumor.ventrikel+TVP+VATS.Boxlaesie+VATS.PVI+Ventrikelaneurysma+Vervangen.pacemaker.of.ICD+Vervanging.aorta.ascendens.met.aortaboog+Vervanging.aortawortel+Vervanging.aortawortel.aorta.ascendens.en.boog+Verwijderen.Corpus.Alienum+Verwijderen.pacemaker.of.ICD+VSD+Wigresectie+Wigresectie.VATS+Wondtoilet+
-  num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM+Leeftijd+Pulmonale.hypertensie
-imp3_data_and_ops <- Operatieduur ~ Ascendensvervanging+ASD+AVP+AVR+AVR.via.minithoracotomie+Bentall.procedure+Bilobectomie.open.procedure+Bilobectomie.VATS+Biventriculaire.pacemaker+Boxlaesie+Bullectomie.met.partiele.pleurectomie+Bullectomie.met.partiele.pleurectomie.VATS+CABG+CABG.via.minithoracotomie+CABGPacemakerdraad.tijdelijk+Capsulotomie.capsulectomie.met.verwijderen.mammaprothese.na.augmentatie+Decorticatie.long+Decorticatie.long.VATS+Diagnostische.pleurapunctie+ECMO+Endoscopische.bullectomie.met.partiele.pleurectomie+Endoscopische.lobectomie.of.segmentresectie+Endoscopische.longbiopsie+Endoscopische.ok.empyema.thoracis+Endoscopische.wigresectie+Epicardiale.LV.lead+Excisie.aandoening.thoraxwand.VATS+Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit+Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide+Inbrengen.LVAD.BIVAD+Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker+Klassieke.Aortabroek.Prothese+Klassieke.aortabuisprothese.met.zijtak+Lobectomie.of.segmentresectie+Longbiopsie.VATS+Mamma.ablatio+Maze+Mediastinoscopie+Morrow+MVP+MVP.via.minithoracotomie+MVPVentrikelaneurysma+MVR+MVR.via.minithoracotomie+Nuss.bar.verwijderen+Nuss.procedure+Ok.empyema.thoracis+Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal+Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie+Operatie.wegens.een.perforerende.hartverwonding+Operatieve.behandeling.van.een.empyema.thoracis.open.procedure+Operatieve.behandeling.van.een.empyema.VATS+Operatieve.verwijdering.gezwellenRavitch.procedure+Partiele.pericardresectie.via.thoracotomie+Partiele.pleurectomie+Percardiectomie+Pericard.drainage+Pericard.fenestratie.via.VATS+Plaatsen.epicardiale.electrode.na.openen.pericard+Pleurabiopsie+Pleurectomie.VATS+Pleuro.pneumonectomie.open.procedure+Pneumonectomie+Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure+Pneumonectomie.open.procedure+Poging.tot.VATS.PVI+Proefthoracotomie+PVI+Ravitch.procedure+Refixatie.sternum+Rethoracotomie+Sleeve.resectie+Sleeve.resectie.VATS+Staaldraden.verwijderen+TAVI.1+TAVI.II+Tumor.atrium+Tumor.mediastinum+Tumor.ventrikel+TVP+VATS.Boxlaesie+VATS.PVI+Ventrikelaneurysma+Vervangen.pacemaker.of.ICD+Vervanging.aorta.ascendens.met.aortaboog+Vervanging.aortawortel+Vervanging.aortawortel.aorta.ascendens.en.boog+Verwijderen.Corpus.Alienum+Verwijderen.pacemaker.of.ICD+VSD+Wigresectie+Wigresectie.VATS+Wondtoilet+
-  num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM+Leeftijd+Pulmonale.hypertensie+Nierfunctie+NYHA #+BMI_group
-imp4_data_and_ops <- Operatieduur ~ Ascendensvervanging+ASD+AVP+AVR+AVR.via.minithoracotomie+Bentall.procedure+Bilobectomie.open.procedure+Bilobectomie.VATS+Biventriculaire.pacemaker+Boxlaesie+Bullectomie.met.partiele.pleurectomie+Bullectomie.met.partiele.pleurectomie.VATS+CABG+CABG.via.minithoracotomie+CABGPacemakerdraad.tijdelijk+Capsulotomie.capsulectomie.met.verwijderen.mammaprothese.na.augmentatie+Decorticatie.long+Decorticatie.long.VATS+Diagnostische.pleurapunctie+ECMO+Endoscopische.bullectomie.met.partiele.pleurectomie+Endoscopische.lobectomie.of.segmentresectie+Endoscopische.longbiopsie+Endoscopische.ok.empyema.thoracis+Endoscopische.wigresectie+Epicardiale.LV.lead+Excisie.aandoening.thoraxwand.VATS+Grote.borstwandresectie.in.verband.met.een.doorgegroeide.maligniteit+Inbrengen.endocardiale.electrode.en.bevestigen.tweede.electrode.op.het.epicard.of.bevestigen.beide+Inbrengen.LVAD.BIVAD+Inbrengen.van.stimulatie.electrode.en.aansluiten.subc.geplaatste.pacemaker+Klassieke.Aortabroek.Prothese+Klassieke.aortabuisprothese.met.zijtak+Lobectomie.of.segmentresectie+Longbiopsie.VATS+Mamma.ablatio+Maze+Mediastinoscopie+Morrow+MVP+MVP.via.minithoracotomie+MVPVentrikelaneurysma+MVR+MVR.via.minithoracotomie+Nuss.bar.verwijderen+Nuss.procedure+Ok.empyema.thoracis+Open.operatie.van.een.of.meerdere.mediastinumtumoren.eventueel.midsternaal+Openen.hartzakje.zonder.hartingreep.eventueel.drainage.van.een.pericarditis.via.een.thoracotomie+Operatie.wegens.een.perforerende.hartverwonding+Operatieve.behandeling.van.een.empyema.thoracis.open.procedure+Operatieve.behandeling.van.een.empyema.VATS+Operatieve.verwijdering.gezwellenRavitch.procedure+Partiele.pericardresectie.via.thoracotomie+Partiele.pleurectomie+Percardiectomie+Pericard.drainage+Pericard.fenestratie.via.VATS+Plaatsen.epicardiale.electrode.na.openen.pericard+Pleurabiopsie+Pleurectomie.VATS+Pleuro.pneumonectomie.open.procedure+Pneumonectomie+Pneumonectomie.met.uitgebreide.verwijdering.lymfklieren.open.procedure+Pneumonectomie.open.procedure+Poging.tot.VATS.PVI+Proefthoracotomie+PVI+Ravitch.procedure+Refixatie.sternum+Rethoracotomie+Sleeve.resectie+Sleeve.resectie.VATS+Staaldraden.verwijderen+TAVI.1+TAVI.II+Tumor.atrium+Tumor.mediastinum+Tumor.ventrikel+TVP+VATS.Boxlaesie+VATS.PVI+Ventrikelaneurysma+Vervangen.pacemaker.of.ICD+Vervanging.aorta.ascendens.met.aortaboog+Vervanging.aortawortel+Vervanging.aortawortel.aorta.ascendens.en.boog+Verwijderen.Corpus.Alienum+Verwijderen.pacemaker.of.ICD+VSD+Wigresectie+Wigresectie.VATS+Wondtoilet+
-  num_of_ops + Benadering + Casustype + Eerdere.hartchirurgie + Actieve.endocarditis + Aorta.chirurgie  + Linker.ventrikel.functie + Aantal.anastomosen + HLM+Leeftijd+Pulmonale.hypertensie+Nierfunctie+NYHA+CCS+IC.ligduur+AF+Dagdeel+Geslacht    #+BMI_group
 
-fit_lm <- lm(formula = imp1_data_and_ops
-             , data = ops_fusion)
-summary(fit_lm)
-fit_lm2 <- lm(formula = imp2_data_and_ops
-             , data = ops_fusion)
-summary(fit_lm2)
-fit_lm3 <- lm(formula = imp3_data_and_ops
-             , data = ops_fusion)
-summary(fit_lm3)
-fit_lm4 <- lm(formula = imp4_data_and_ops
-             , data = ops_fusion)
-summary(fit_lm4)
+#Comparison GLM, LM and planned Time
+ggplot()+ geom_histogram(data=proj, aes(x=proj$fitted_glm_diff), bins = 100, colour="darkblue") + 
+  geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, colour="red")+
+  geom_histogram(data=proj, aes(x=time.diff),bins = 100, colour="black")
+
+
+
+
+
