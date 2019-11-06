@@ -181,7 +181,8 @@ proj$num_of_ops <- as.factor(proj$num_of_ops)
 
 #create different table with operationtypes
 ops_tbl <- proj %>%
-  select(ID, Operatietype, Benadering, num_of_ops) %>%
+  select(ID, Operatietype#, Benadering, num_of_ops
+        ) %>%
   distinct()
 ops_tbl <- as_tibble(ops_tbl)
 
