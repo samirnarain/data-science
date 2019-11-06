@@ -187,7 +187,6 @@ proj$num_of_ops <- as.factor(proj$num_of_ops)
 #create different table with operationtypes
 ops_tbl <- proj %>%
   select(ID, Operatietype, Benadering, num_of_ops) %>%
-  arrange() %>%
   distinct()
 ops_tbl <- as_tibble(ops_tbl)
 
@@ -384,16 +383,15 @@ summary(ops_tbl)
 
 
 
-
 #create different table with operationtypes
 patients_tbl <- proj %>%
   select(ID, Leeftijd, Geslacht ,AF ,Chronische.longziekte ,
          Extracardiale.vaatpathie ,Actieve.endocarditis ,
          Eerdere.hartchirurgie ,Kritische.preoperatieve.status ,
-         Myocard.infact..90.dagen  ,Aorta.chirurgie ,Pulmonale.hypertensie ,
-         Linker.ventrikel.functie ,Euroscore1 ,Euroscore2 ,Nierfunctie ,
-         Slechte.mobiliteit ,BMI ,DM )
+         Myocard.infact..90.dagen  ,Aorta.chirurgie ,Pulmonale.hypertensie ,Euroscore1 ,
+         Slechte.mobiliteit  ,DM )
 patients_tbl <- as_tibble(patients_tbl)
+       
 
 hospital_tbl <- proj %>%
   select(ID,Chirurg, Anesthesioloog, OK)
@@ -401,9 +399,9 @@ hosptial_tbl <- as_tibble(hospital_tbl)
   
 time_tbl <- proj %>%
   select(ID, Casustype, Dagdeel, Geplande.operatieduur,Operatieduur,         
-         Ziekenhuis.ligduur, IC.ligduur,time.diff            
-  )
+         Ziekenhuis.ligduur, IC.ligduur,time.diff)
 time_tbl <- as_tibble(time_tbl)
+
 
 
 
