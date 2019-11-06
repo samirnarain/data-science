@@ -165,10 +165,26 @@ proj <- tibble::rowid_to_column(proj, "ID")
 
 #create different table with operationtypes
 ops_tbl <- proj %>%
-  select(ID, Operatietype) %>%
+  select(ID, Operatietype, Benadering, num_of_ops) %>%
   arrange() %>%
   distinct()
 ops_tbl <- as_tibble(ops_tbl)
+
+patients_tbl <- proj %>%
+  select(ID, Leeftijd, Geslacht ,AF ,Chronische.longziekte ,
+         Extracardiale.vaatpathie ,Actieve.endocarditis ,
+         Eerdere.hartchirurgie ,Kritische.preoperatieve.status ,
+         Myocard.infact..90.dagen  ,Aorta.chirurgie ,Pulmonale.hypertensie ,
+         Linker.ventrikel.functie ,Euroscore1 ,Euroscore2 ,Nierfunctie ,
+         Slechte.mobiliteit ,BMI ,DM )
+
+hospital_tbl <- proj %>%
+  select(ID,Chirurg, Anesthesioloog, OK)
+  
+time_tbl <- proj %>%
+  select(ID, Casustype, Dagdeel, Geplande.operatieduur,Operatieduur,         
+         Ziekenhuis.ligduur, IC.ligduur,time.diff            
+  )
 
 #create columns with operationtypes
 ops_tbl <- ops_tbl %>% mutate(Ascendensvervanging = ifelse(grepl("Ascendensvervanging", Operatietype) == TRUE, 1, 0))
