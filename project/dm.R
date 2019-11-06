@@ -16,43 +16,54 @@ imp_data_and_ops <- Operatieduur ~ ASD +AVP +AVR +AVR.via.minithoracotomie +Asce
 
 #LM
 fit_lm <- lm(formula = imp_data_and_ops, data = ops_fusion)
-summary(fit_lm)
+#summary(fit_lm)
 #preditcion out of LM
 fitted_lm <- fitted(fit_lm)
-proj <- mutate(proj,fitted_lm)
-fitted_lm_diff <- proj$Operatieduur - fitted_lm
+fitted_lm_rounded <- round_any(fitted_lm, 5, ceiling)
+proj <- mutate(proj,fitted_lm_rounded)
+fitted_lm_diff <- proj$Operatieduur - fitted_lm_rounded
 proj <- mutate(proj,fitted_lm_diff)
 
 #GLM poisson
 fit_glm_poisson <- glm(formula = imp_data_and_ops, data = ops_fusion, family = "poisson")
-summary(fit_glm_poisson)
+#summary(fit_glm_poisson)
 #prediction out of GLM
 fitted_glm <- fitted(fit_glm_poisson)
-proj <- mutate(proj,fitted_glm)
-fitted_glm_diff <- proj$Operatieduur - fitted_glm
+fitted_glm_rounded <- round_any(fitted_glm, 5, ceiling)
+proj <- mutate(proj,fitted_glm_rounded)
+fitted_glm_diff <- proj$Operatieduur - fitted_glm_rounded
 proj <- mutate(proj,fitted_glm_diff)
 
 
 # rpart with anova
 fit_tree <- rpart(imp_data_and_ops, data = ops_fusion,
                   method = "anova")
-summary(fit_tree)
+#summary(fit_tree)
 rpart.plot(fit_tree, fallen.leaves = T, type = 2, box.palette="Blues")
-predict_rpart <- predict(fit_tree)
-predicr_part_rounded <- round_any(predict_rpart, 5, ceiling)
-
+rpart_predict <- predict(fit_tree)
+rpart_predict_rounded <- round_any(rpart_predict, 5, ceiling)
+proj <- mutate(proj,rpart_predict_rounded)
+rpart_predict_diff <- proj$Operatieduur - rpart_predict_rounded
+proj <- mutate(proj,rpart_predict_diff)
 
 # random forest prediction 
 fit_rf <- randomForest::randomForest(imp_data_and_ops , data = ops_fusion)
 predict_rf <- predict(fit_rf)
 predict_rf_rounded <- round_any(predict_rf, 5, ceiling)
-
-#Comparison GLM, LM and planned Time
-ggplot()+ geom_histogram(data=proj, aes(x=proj$fitted_glm_diff), bins = 100, colour="darkblue") + 
-  geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, colour="red")+
-  geom_histogram(data=proj, aes(x=time.diff),bins = 100, colour="black")
-
+proj <- mutate(proj,predict_rf_rounded)
+predict_rf_diff <- proj$Operatieduur - predict_rf_rounded
+proj <- mutate(proj,predict_rf_diff)
+fit_rf
 
 
+
+
+#Comparison GLM, LM, Tree, Random Forest and actual planned Time
+ggplot()+ 
+  geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, fill="red",colour="red",alpha = 1/10)+
+  geom_histogram(data=proj, aes(x=fitted_glm_diff), bins = 100, fill="darkblue",colour="darkblue",alpha = 1/10) + 
+  geom_histogram(data=proj, aes(x=rpart_predict_diff),bins = 100, fill="green",colour="green",alpha = 1/10)+
+  geom_histogram(data=proj, aes(x=predict_rf_diff),bins = 100, fill="yellow",colour="yellow", alpha= 1/10)
+#+geom_histogram(data=proj, aes(x=time.diff),bins = 100, colour="black")
 
 
