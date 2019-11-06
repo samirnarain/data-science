@@ -33,6 +33,18 @@ fitted_glm_diff <- proj$Operatieduur - fitted_glm
 proj <- mutate(proj,fitted_glm_diff)
 
 
+# rpart with anova
+fit_tree <- rpart(imp_data_and_ops, data = ops_fusion,
+                  method = "anova")
+summary(fit_tree)
+rpart.plot(fit_tree, fallen.leaves = T, type = 2, box.palette="Blues")
+rpart_predict <- predict(fit_tree)
+
+# random forest prediction 
+fit_rf <- randomForest::randomForest(imp_data_and_ops , data = ops_fusion)
+predict_rf <- predict(fit_rf)
+
+
 #Comparison GLM, LM and planned Time
 ggplot()+ geom_histogram(data=proj, aes(x=proj$fitted_glm_diff), bins = 100, colour="darkblue") + 
   geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, colour="red")+
