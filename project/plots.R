@@ -92,6 +92,35 @@ proj %>%
   geom_jitter(color="black", size = 0.4, alpha=0.9)
 
 
+plot(proj$Operatieduur,proj$time.diff)
 
+ggplot()+ 
+  geom_point(data=proj, aes(x=Operatieduur, y=fitted_lm),
+             colour="red",alpha = 1/10)+
+  geom_point(data=proj, aes(x=Operatieduur, y=fitted_glm),
+             colour="blue",alpha = 1/10)+
+  geom_point(data=proj, aes(x=Operatieduur, y=Geplande.operatieduur),
+             colour="black",alpha = 1/10)+
+  geom_abline()+
+  labs(title = "Scatter Plot Actual Operations time vs Predicted values",
+       x = "Actual Operation Time", y = "Predicted Time" )
+  
+
+
+ggplot()+
+  geom_smooth(data=proj, aes(x=Operatieduur, y=fitted_glm),
+              colour="blue",alpha = 1/10)+
+  geom_smooth(data=proj, aes(x=Operatieduur, y=fitted_lm),
+              colour="red",alpha = 1/10)+
+  geom_smooth(data=proj, aes(x=Operatieduur, y=predict_rf),
+              colour="green",alpha = 1/10)+
+  geom_smooth(data=proj, aes(x=Operatieduur, y=rpart_predict),
+              colour="yellow",alpha = 1/10)+
+  geom_smooth(data=proj, aes(x=Operatieduur, y=Geplande.operatieduur),
+              colour="black",alpha = 1/10)+
+  geom_abline()+
+  labs(title = "Actual Operations time vs Predicted values - 
+       LM(red) GLM(blue) Decision Tree(Yellow) Random Forest(green) Planned(Black)",
+       x = "Actual Operation Time", y = "Predicted Time" )
 
 
