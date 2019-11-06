@@ -7,6 +7,7 @@
 #install.package("rpart.plot")
 
 library(readr)
+library(plyr)
 library(dplyr)
 library(caret)
 library(rpart)
@@ -15,8 +16,6 @@ library(tidyverse)
 library(e1071)
 library(lubridate)
 library(ggplot2)
-library(ggpubr)
-library(mice)
 
 #DATA PREPARATION (TRANSFORMING AND COMPUTING)
 proj = read.csv2(file = "data/surgical_case_durations.csv")
@@ -44,10 +43,6 @@ proj <- proj %>% filter(!is.na(Geslacht),!is.na(Operatietype))
 proj <- subset(proj, select = -c(Linker.ventrikel.functie, Nierfunctie, Euroscore2, CCS, NYHA, BMI) )
 proj <- na.omit(proj)
 
-
-#predicting NAs with mice package
-#tempData <- mice(proj,m=5,maxit=1,meth='pmm',seed=500)
-#summary(tempData)
 
 
 
@@ -392,7 +387,6 @@ patients_tbl <- proj %>%
          Slechte.mobiliteit  ,DM )
 patients_tbl <- as_tibble(patients_tbl)
        
-
 hospital_tbl <- proj %>%
   select(ID,Chirurg, Anesthesioloog, OK)
 hosptial_tbl <- as_tibble(hospital_tbl)
