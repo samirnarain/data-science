@@ -65,13 +65,3 @@ RMSE(rpart_predict,proj$Operatieduur)
 
 RMSE(proj$Geplande.operatieduur,proj$Operatieduur)
 
-
-#Comparison GLM, LM, Tree, Random Forest and actual planned Time
-ggplot()+ 
-  geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, fill="red",colour="red",alpha = 1/10)+
-  geom_histogram(data=proj, aes(x=fitted_glm_diff), bins = 100, fill="darkblue",colour="darkblue",alpha = 1/10) + 
-  geom_histogram(data=proj, aes(x=rpart_predict_diff),bins = 100, fill="green",colour="green",alpha = 1/10)+
-  geom_histogram(data=proj, aes(x=predict_rf_diff),bins = 100, fill="yellow",colour="yellow", alpha= 1/10)
-#+geom_histogram(data=proj, aes(x=time.diff),bins = 100, colour="black")
-
-
