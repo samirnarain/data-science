@@ -389,7 +389,7 @@ patients_tbl <- as_tibble(patients_tbl)
        
 hospital_tbl <- proj %>%
   select(ID,Chirurg, Anesthesioloog, OK)
-hosptial_tbl <- as_tibble(hospital_tbl)
+hospital_tbl <- as_tibble(hospital_tbl)
   
 time_tbl <- proj %>%
   select(ID, Casustype, Dagdeel, Geplande.operatieduur,Operatieduur,         
