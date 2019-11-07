@@ -93,25 +93,22 @@ proj %>%
 
 
 plot(proj$Operatieduur,proj$time.diff)
-
-#Data Visualization
-#Comparison GLM, LM and planned Time
-ggplot()+ 
-  geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, fill="red",colour="red",alpha = 1/10)+
-  geom_histogram(data=proj, aes(x=fitted_glm_diff), bins = 100, fill="darkblue",colour="darkblue",alpha = 1/10) + 
-  geom_histogram(data=proj, aes(x=rpart_predict_diff),bins = 100, fill="green",colour="green",alpha = 1/10)+
-  geom_histogram(data=proj, aes(x=predict_rf_diff),bins = 100, fill="yellow",colour="yellow", alpha= 1/10)
-#+geom_histogram(data=proj, aes(x=time.diff),bins = 100, colour="black")
+### plot fitted values and actual times
 
 ggplot()+ 
   geom_point(data=proj, aes(x=Operatieduur, y=fitted_lm),
-             colour="red",alpha = 1/10)+
+             colour="red",alpha = 2/10)+
   geom_point(data=proj, aes(x=Operatieduur, y=fitted_glm),
-             colour="blue",alpha = 1/10)+
+             colour="blue",alpha = 2/10)+
+  geom_point(data=proj, aes(x=Operatieduur, y=rpart_predict),
+             colour="yellow",alpha = 2/10)+
+  geom_point(data=proj, aes(x=Operatieduur, y=predict_rf),
+             colour="green",alpha = 2/10)+
   geom_point(data=proj, aes(x=Operatieduur, y=Geplande.operatieduur),
-             colour="black",alpha = 1/10)+
+             colour="black",alpha = 2/10)+
   geom_abline()+
-  labs(title = "Scatter Plot Actual Operations time vs Predicted values",
+  labs(title = "Scatter Plot Actual Operations time vs Predicted values
+       LM(red) GLM(blue) Decision Tree(Yellow) Random Forest(green) Planned(Black)",
        x = "Actual Operation Time", y = "Predicted Time" )
   
 
@@ -133,3 +130,18 @@ ggplot()+
        x = "Actual Operation Time", y = "Predicted Time" )
 
 
+
+#Data Visualization
+
+#Comparison GLM, LM and planned Time
+
+ggplot()+ 
+  geom_histogram(data=proj, aes(x=proj$time.diff),bins = 100, fill="black",colour="black", alpha= 1/10)+
+  geom_histogram(data=proj, aes(x=fitted_lm_diff),bins = 100, fill="red",colour="red",alpha = 1/10)+
+  geom_histogram(data=proj, aes(x=fitted_glm_diff), bins = 100, fill="darkblue",colour="darkblue",alpha = 1/10) + 
+  geom_histogram(data=proj, aes(x=rpart_predict_diff),bins = 100, fill="green",colour="green",alpha = 1/10)+
+  geom_histogram(data=proj, aes(x=predict_rf_diff),bins = 100, fill="yellow",colour="yellow", alpha= 1/10) +
+  labs(title = "Histogram of Time Difference - 
+       LM(red) GLM(Blue) Decision Tree(Green) Random Forest(Yellow) Planned(Black)",
+       x = "Time Difference (actual - predicted)", y = "Count of Ops" )
+#+geom_histogram(data=proj, aes(x=time.diff),bins = 100, colour="black")
