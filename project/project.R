@@ -5,6 +5,7 @@
 #install.packages("RPostgreSQL")
 #install.packages("tidyverse")
 #install.package("rpart.plot")
+#install.packages("randomForest")
 
 library(readr)
 library(plyr)
@@ -13,9 +14,8 @@ library(caret)
 library(rpart)
 library(rpart.plot)
 library(tidyverse)
-library(e1071)
-library(lubridate)
 library(ggplot2)
+library(randomForest)
 
 #DATA PREPARATION (TRANSFORMING AND COMPUTING)
 proj = read.csv2(file = "data/surgical_case_durations.csv")
