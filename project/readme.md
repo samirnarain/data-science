@@ -1,7 +1,7 @@
 
 ## 2 RELATED WORK
 
-There have ben prior reseasrch done for optimization of the OR schedule and 
+Optimization of schedules falls under the study of Operation Research and there have been prior research done for optimization of the OR schedules at hospitals. While the use of  of certain scheduling systems, like open-scheuling and block-scheduling has resulted in better utilization of ORs, there is still scope for . Pulido et al. (2014) concluded that the duration of surgery depends on the surgon performing, higher the expertise of the surgon, lower would be the probability of delay. As TCT is a multiple OR, there is also an affect of the prior sugreries perfomred in the same OR [Zheng Zhang & Xiaolan Xie (2015)] and the dealy of a surgery has cascading affect on the surgeries planned for the rest of the day [Denton et al. (2007)]. 
 
 ## 3 APPROACH
 
@@ -59,8 +59,11 @@ Recommendation:
 
 ## REFERENCES 
 
-[1] Pulido, R., Aguirre, A.M., Ortega-Mier, M. et al. BMC Health Serv Res (2014) 14: 464. https://doi.org/10.1186/1472-6963-14-464 
+Denton, B., Viapiano, J. & Vogl, A. Health Care Manage Sci (2007) 10: 13. https://doi.org/10.1007/s10729-006-9005-4 
 
+Pulido, R., Aguirre, A.M., Ortega-Mier, M. et al. BMC Health Serv Res (2014) 14: 464. https://doi.org/10.1186/1472-6963-14-464 
+
+Zheng Zhang & Xiaolan Xie (2015) Simulation-based optimization for surgery appointment scheduling of multiple operating rooms, IIE Transactions, 47:9, 998-1012, DOI: 10.1080/0740817X.2014.999900 
 
 
 ---------------------
