@@ -8,6 +8,7 @@ Optimization of schedules falls under the study of Operation Research and there 
 
 ### 3.2 Data Preparation
 
+The Dataset was received in a csv file with European formate decimal places. As it was loaded into R, it needed to be transformed to the correct format to be interpreted as numbers. There was a significant amount of incomplete data, which was filled with 'NULL' or 'Onbekend' which had to be fixed before it could be used. The columns by default were treated as factors and the variables which were required to be numeric had to be converted explicitly. 
 
 ### 3.3 Data Mining
 
@@ -24,6 +25,8 @@ Decision trees offer the ability to quickly analyse the results because of their
 ## 4 EXPERIMENTS
 
 ### 4.1 Data set description (Outcomes of Data preparation)
+
+As part of data preparation, we started with data cleansing 
 
 The data was diveded into four tables - Time, Operation, Patient and hospital. The time table was our fact table and the others were dimension tables. 
 -  The time table contained the actual time and the computed time difference - the two main variables we were looking at, along with other variables related to the time of the operation and the days the patient spent in the hospital. This way we were able to separate all variables related to time into a separate table.   
