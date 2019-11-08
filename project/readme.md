@@ -11,12 +11,13 @@ Optimization of schedules falls under the study of Operation Research and there 
 
 ### 3.3 Data Mining
 
-Regression analysis was performed on the data to predict the Operation time to analyse how much effect each of the predictor in the dataset had. Four regression models were tested to see which of the models would be best suited for the problem.
-Two Linear regression and two decision tree methods were applied. 
-- Multiple Linear regression with gaussian distribution - The was the simplest LM which could be applied to the dataset.  
-- Poisson regression
-- Decision  Tree (using rpart and method 'anova')
-- Random Forest
+Regression analysis was performed on the data to predict the Operation time and to analyse how strong an effect each of the predictor in the dataset had. Four regression models were tested to see which of the models would be best suited for the problem. Of these, two  Linear regression and two decision tree methods were applied. While linear regression is very robust and can be used to get several insights on the data it is applied to, we wanted further information the other models provided. 
+
+Decision trees offer the ability to quickly analyse the results because of their visual outcome while at the cost of being not being flxible to slight changes in predictor. Hence our decision to analyse the four regression models listed below: 
+- Multiple Linear regression with gaussian distribution - The was the simplest LM which could be applied to the dataset. The main insight received from this was the degree to which the the r^2 value was affected by the presence of variables in the formula. 
+- Poisson regression - mainly performed to compare the predictions of the Linear Regression model between the two distributions - gaussian and poisson. 
+- Decision Tree (using rpart and method 'anova') - Decision tree was created to visialize the affect of the top variables in the dataset. The nodes closer to the root node indicated such a relationship. 
+- Random Forest - As a single decision tree is known to suffer from high variance, random forest was used to lower this variance and improve the quality of prediction.  
 
 
 
@@ -31,8 +32,6 @@ The data was diveded into four tables - Time, Operation, Patient and hospital. T
 - Hospital table contained variables which were related to the hospital. These are the variables on which the hospital as direct control over and can decide based on the nature of surgery and availability. 
 
 As the data in the regression function needs to be in a single dataframe in R, all the tables were combined together in one. 
-
-##### Formula
 
 
 
