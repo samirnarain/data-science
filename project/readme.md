@@ -26,7 +26,9 @@ Decision trees offer the ability to quickly analyse the results because of their
 
 ### 4.1 Data set description (Outcomes of Data preparation)
 
-As part of data preparation, we started with data cleansing 
+As part of data preparation, we started with data cleansing, removing the rows and coloumns which did not have actual values. All the NULLs and "Onbekend" were replaced by NAs so R could identify them correctly as missing values. From the analysis of the data, we identified 554 rows which had mostly NA in all the coloumns or in the operation type coloumn, so these rows were deleted. The coloumns Linker.ventrikel.functie, Nierfunctie, Euroscore2, CCS, NYHA and BMI were deleted from the data as they either had too many NAs or were having low or negative impact on the accuracy of regression. 
+
+The variables age, planned & actual operation, BMI, hospital bedding & IC duration, Euroscore 1&2 were transformed to of numeric type.
 
 The data was diveded into four tables - Time, Operation, Patient and hospital. The time table was our fact table and the others were dimension tables. 
 -  The time table contained the actual time and the computed time difference - the two main variables we were looking at, along with other variables related to the time of the operation and the days the patient spent in the hospital. This way we were able to separate all variables related to time into a separate table.   
