@@ -1,37 +1,60 @@
 
-### Data Preparation
+## 2 RELATED WORK
 
-##### Star schema
-The data was diveded into four tables - Time, Operation, Patient and hospital. 
-- The time table was our fact table and it contained the actual time and the time differences(from predicted models and planned times) - the two main variables we were looking at. 
-- Patient table contained all the charecteristics of the patient, like age, gender, BMI, EUROScore1 etc. 
-- Operation table was created to separate the individual operations performed during surgeries where there multiple operations.
-- Hospital table contained variables which were related to the hospital - like Surgon, Operation Room, and anesthesiologist.
-
-#### Variable selection
+## 3 APPROACH
 
 
-### Data Mining
+### 3.2 Data Preparation
 
-Regression was performed on the data set and the operation time was predicted. Four regression models were tested on the data to see which of the models would be best suited for the problem.
+##### Variable selection
+
+##### How the data was transformed
+
+
+### 3.3 Data Mining
+
+Four regression models were tested on the data to see which of the models would be best suited for the problem.
+Two Linear regression and two decision tree models were taken. 
 - LM - Multiple Linear regression with gaussian distribution
 - GLM (using family poisson)
 - Decision  Tree (using rpart and method 'anova')
 - Random Forest
 
+
+
+## 4 EXPERIMENTS
+
+### 4.1 Data set description (Outcomes of Data preparation)
+
+##### Star schema
+
+The data was diveded into four tables - Time, Operation, Patient and hospital. 
+- The time table was our fact table and it contained the actual time and the time differences(from predicted models and planned times) - the two main variables we were looking at. 
+- Patient table contained all the charecteristics of the patient. These are individual to each patient and hence put in a separate table.
+- Operation table was created to separate the individual operations performed during surgeries where there multiple operations.
+- Hospital table contained variables which were related to the hospital. These are the variables on which the hospital as direct control over and can decide on them based on the nature of surgery. 
+
+
 ##### Formula
 
-### Conclusion
-RMSE calcluated to compare the different data prediction models. LM was
+
+
+## 5 Discussion
+
+RMSE calcluated to compare the different data prediction models. 
 
 The reultant R^2 is not enough to predict accurately. 
+
 Though there is an improvement in the predicted values, there is further study required to build an accrate predictive model.  
 
-### Discussion
-Have a patient id to link the operation to patient. There can be cases in the data where the same patient undergoes multiple operations and in the current dataset there is no way to link them. 
 
 
-### Related research
+## 6 Summary 
+
+Recommendation:
+- Have a patient id to link the operation to patient. There can be cases in the data where the same patient undergoes multiple operations and in the current dataset there is no way to link them. 
+- Collect data about the time the operation was performed - Date and time of the surgery. 
+
 
 
 
