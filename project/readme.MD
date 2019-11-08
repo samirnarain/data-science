@@ -16,11 +16,15 @@ File Distribution
     3. rpart.plot
     4. randomForest
 
-- plots.R - 
+- plots.R - code for all the plots in the project. 
   - Packages used:
     1. ggplot2
     
 - data/surgical_case_durations.csv - the dataset for the project.
 
 TODO
-Sampling, training and testing
+- Sampling, training and testing
+- make Math's equations of the formula
+- include reference/citations
+  - related to TCT
+  - related to OR-utilization
