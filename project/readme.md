@@ -1,6 +1,8 @@
 
 ## 2 RELATED WORK
 
+There have ben prior reseasrch done for optimization of the OR schedule and 
+
 ## 3 APPROACH
 
 
@@ -13,7 +15,7 @@
 
 ### 3.3 Data Mining
 
-Four regression models were tested on the data to see which of the models would be best suited for the problem.
+Regression analysis was performed on the data to predict the Operation time. Four regression models were tested to see which of the models would be best suited for the problem.
 Two Linear regression and two decision tree models were taken. 
 - LM - Multiple Linear regression with gaussian distribution
 - GLM (using family poisson)
@@ -54,6 +56,10 @@ Though there is an improvement in the predicted values, there is further study r
 Recommendation:
 - Have a patient id to link the operation to patient. There can be cases in the data where the same patient undergoes multiple operations and in the current dataset there is no way to link them. 
 - Collect data about the time the operation was performed - Date and time of the surgery. 
+
+## REFERENCES 
+
+[1] Pulido, R., Aguirre, A.M., Ortega-Mier, M. et al. BMC Health Serv Res (2014) 14: 464. https://doi.org/10.1186/1472-6963-14-464 
 
 
 
