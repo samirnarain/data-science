@@ -1,15 +1,17 @@
 
 ### Data Preparation
 
-### Star schema
+##### Star schema
+The data was diveded into four tables - Time, Operation, Patient and hospital. The time table was our fact table and it contained the actual time and the time differences(from predicted models and planned times) - the two main variables we were looking at. The patient table contained all the charecteristics of the patient, like age, gender, BMI, EUROScore etc. We created the operation table to separate the operations for the patient.    
 
 ### Data Mining
 
 ### Conclusion
-The reultant R2 is not enough ro predict accurately. 
+The reultant R2 is not enough to predict accurately. 
 Though there is an improvement in the predicted values, there is further study required to build an accrate predictive model.  
 
 ### Discussion
+Have a patient id to link the operation to patient. There can be cases in the data where the same patient undergoes multiple operations and in the current dataset there is no way to link them. 
 
 
 ### Related research
