@@ -8,7 +8,7 @@ Optimization of schedules falls under the study of Operation Research and there 
 
 ### 3.2 Data Preparation
 
-The Dataset was received in a csv file with European formate decimal places. As it was loaded into R, it needed to be transformed to the correct format to be interpreted as numbers. There was a significant amount of incomplete data, which was filled with 'NULL' or 'Onbekend' which had to be fixed before it could be used. The columns by default were treated as factors and the variables which were required to be numeric had to be converted explicitly. 
+The Dataset was received in a csv file with European format decimal places. As it was loaded into R, it needed to be transformed to the correct format to be interpreted as numbers. There was a significant amount of incomplete data, which was filled with 'NULL' or 'Onbekend' which had to be fixed before it could be used. The columns by default were treated as factors and the variables which were required to be numeric had to be converted explicitly. The operation types for each operation were grouped, so the needed to be split effectively to analyse the impact of individual operation in scenarios where multiple operations were being performed. 
 
 ### 3.3 Data Mining
 
@@ -40,7 +40,7 @@ As the data in the regression function needs to be in a single dataframe in R, a
 
 
 
-## 5 Discussion
+## 5 DISCUSSION
 
 RMSE calcluated to compare the different data prediction models. 
 
@@ -50,7 +50,7 @@ Though there is an improvement in the predicted values, there is further study r
 
 
 
-## 6 Summary 
+## 6 SUMMARY 
 
 Recommendation:
 - Have a patient id to link the operation to patient. There can be cases in the data where the same patient undergoes multiple operations and in the current dataset there is no way to link them. 
