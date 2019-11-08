@@ -1,5 +1,23 @@
 
-File Distribution
+### Data Preparation
+
+### Star schema
+
+### Data Mining
+
+### Conclusion
+The reultant R2 is not enough ro predict accurately. 
+Though there is an improvement in the predicted values, there is further study required to build an accrate predictive model.  
+
+### Discussion
+
+
+### Related research
+
+
+
+
+#### File Distribution
 
 - project.R - contains code for reading the dataset, Data preparation, and uploading the data to the Database.
   - Packages used:
