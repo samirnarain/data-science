@@ -2,9 +2,20 @@
 ### Data Preparation
 
 ##### Star schema
-The data was diveded into four tables - Time, Operation, Patient and hospital. The time table was our fact table and it contained the actual time and the time differences(from predicted models and planned times) - the two main variables we were looking at. The patient table contained all the charecteristics of the patient, like age, gender, BMI, EUROScore etc. We created the operation table to separate the operations for the patient.    
+The data was diveded into four tables - Time, Operation, Patient and hospital. 
+The time table was our fact table and it contained the actual time and the time differences(from predicted models and planned times) - the two main variables we were looking at. 
+The patient table contained all the charecteristics of the patient, like age, gender, BMI, EUROScore etc. 
+The operation table was created to separate the individual operations performed during surgeries where there multiple operations.
+Hospital table contained variables which were related to the hospital - like Surgon, Operation Room, and anesthesiologist.
 
 ### Data Mining
+
+Regression was performed on the data set and the operation time was predicted. Four regression models were tested on the data to see which of the models would be best suited for the problem.
+- LM
+- GLM (using family poisson)
+- Decision  Tree (using rpart and method 'anova')
+
+##### Formula
 
 ### Conclusion
 The reultant R2 is not enough to predict accurately. 
