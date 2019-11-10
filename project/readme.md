@@ -1,7 +1,7 @@
 
 ## 2 RELATED WORK
 
-Optimization of schedules falls under the study of Operation Research and there have been prior research done for optimization of the OR schedules at hospitals. Recently more hospitals have started to scheduling systems, like open-scheuling and block-scheduling, which have been studied by Weiss (2014) who concludedthat it has resulted in better utilization of ORs but there has been a continued drive in improving it further. Pulido et al. (2014) concluded that the duration of surgery depends highly of the surgon performing it, higher the expertise of the surgon, lower would be the probability of delay. As TCT is a multiple OR, there is also an affect of the prior sugreries perfomred in the same OR [Zheng Zhang & Xiaolan Xie (2015)] and the delay of one surgery has cascading affect on the surgeries planned for the rest of the day [Denton et al. (2007)]. 
+Optimization of schedules falls under the study of Operation Research and there have been prior research done for optimization of the OR schedules at hospitals. Recently more hospitals have started to scheduling systems, like open-scheduling  and block-scheduling, which have been studied by Weiss (2014) who showed that it has resulted in better utilization of ORs but there has been a continued drive in improving it further. Pulido et al. (2014) concluded that the duration of surgery depends highly of the surgeon performing it, higher the expertise of the surgeon, lower would be the probability of delay. As TCT is a multiple OR hospital, we found a similar study by Zheng Zhang & Xiaolan Xie (2015) which was for scheduling the start time of surgeries in hospitals with multiple operation rooms. They concluded that "... optimal surgeon arrival times are quite different from those of a single OR and are highly dependent on OR number and surgery duration variability." Denton et al. (2007) also highlighted the importance of schedule time and sequencing decisions on OR planning for the day. 
 
 ## 3 APPROACH
 
@@ -17,8 +17,8 @@ Regression analysis was performed on the data to predict the Operation time and 
 Decision trees offer the ability to quickly analyse the results because of their visual outcome while at the cost of being not being flxible to slight changes in predictor. Hence our decision to analyse the four regression models listed below: 
 - Multiple Linear regression with gaussian distribution - The was the simplest LM which could be applied to the dataset. The main insight received from this was the degree to which the the r^2 value was affected by the presence of variables in the formula. 
 - Poisson regression - mainly performed to compare the predictions of the Linear Regression model between the two distributions - gaussian and poisson. 
-- Decision Tree (using rpart and method 'anova') - Decision tree was created to visialize the affect of the top variables in the dataset. The nodes closer to the root node indicated such a relationship. 
-- Random Forest - As a single decision tree is known to suffer from high variance, random forest was used to lower this variance and improve the quality of prediction.  
+- Decision Tree (using rpart function and method 'anova') - Decision tree was created to visialize the affect of the top variables in the dataset. The nodes closer to the root node indicated such a relationship. The methor anova was used as the opertaion time variable was continious. 
+- Random Forest - As a single decision tree is known to suffer from high variance, random forest was used to lower this variance and improve the quality of prediction. 
 
 
 
