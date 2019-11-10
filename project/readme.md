@@ -40,15 +40,18 @@ All the tables were combined together in one as the data in the regression funct
 
 ## 5 DISCUSSION
 
-RMSE calcluated to compare the different data prediction models. 
+All the regression models show an improvement in the prediction of operation time compared to the original planned time. The results are evident from the RMSE values, the planned operation time had a RMSE of 110.48 while all the four prediction models had much lower RMSE. Figures xx and xxx show graphical representations of predictions from all the four models and the planned time. Figure xx shows the histogram of the time differences and we see that the planned time is clustered left all the prediction models. Figure xxx is a plot of the smooth function between the actual time and the predicted time, in addition to the identity line plotted for reference. Here again, all the prediction models are closer to the identity line than the planned time plot. 
 
-The reultant R^2 is not enough to predict accurately. 
+Of the four regression models tested, the best outcome is of the multiple Linear regression. It provided the least RMSE and the highest R-squared out of the two LMs. The Random Forest showed a slight improvement in RMSE over the single optimized decision tree model, which was in line with the expectations. The decision tree also provided us with the five most important variables that have an impact on the operation time are: number of operations, HLM, Aorta.Chirurgie and Dagdeel. 
 
-Though there is an improvement in the predicted values, there is further study required to build an accrate predictive model.  
+However, none of the model can be put to use in its current state because of the low R-squared value of 49%. Researchers agree that the R-squared should be above 80% for a model to be considered a reliable predictor. Further study and tweaking the model would need to be performed to accurately predict the operation time. 
 
-limitations,
-Overfitting problem - the data prediction was performed on the same data as the trained data. So the introduction of new data may produce different results. 
-There were a number of rows deleted from the dataset. This creates a bias in the prediction as some important operation types are removed. For improving this, a more complete data set needs to be processed or there need to be reasonable approximation filled in the missign fields. 
+There are some flaws which we could identify in the current models and would need to be addressed to get better results: 
+- Overfitting - the predictions are made on all the available data in the data set. This leads to overfitting, i.e. the model is dependent on the data to be of the same form, and if there are any operations, or other parameters, not present in the present data set, the model will give unreliable results. A better model would be trained on a subset of the provided dataset and tested for the remaining data. 
+- There were a number of rows deleted from the data to build the models. While the reason for deletion are mentioned in the ‘Data set description’, it leads to under-representation for some set of operations. We noted that there were some operation types that were not part of our final dataset because they had too many missing values and not suitable for our model. For improving the results, reasonable approximations would need to made - like using mean or median values or making use of libraries like MICE for approximation. 
+- There was no link between the rows of operations which prevents us from assessing if the relationship between patients and operation. One patient can undergo multiple operations at different times in the hospital, but the data fails to represent this. A patient ID field would help in this situation.
+- Details about the time and day of operation - in the literature we reviewed as part of this research, the time and sequence of operation in the day have been shown to have a significant impact OR planning. However this information was missing from the dataset on which we trained the model. 
+
 
 
 
