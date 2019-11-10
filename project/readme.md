@@ -22,16 +22,16 @@ Regression analysis was performed on the data to predict the Operation time and 
 
 ## 4 EXPERIMENTS
 
-### 4.1 Data set description (Outcomes of Data preparation)
+### 4.1 Data set description
 
-As part of data preparation, we started with data cleansing, removing the rows and coloumns which did not have actual values. All the NULLs and "Onbekend" were replaced by NAs so R could identify them correctly as missing values. From the analysis of the data, we identified 554 rows which had mostly NA in all the coloumns or in the operation type coloumn, so these rows were deleted. The coloumns Linker.ventrikel.functie, Nierfunctie, Euroscore2, CCS, NYHA and BMI were deleted from the data as they either had too many NAs or were having low or negative impact on the accuracy of regression. 
+As part of data preparation, we started with data cleansing, removing the rows and columns which did not have actual values. All the NULLs and "Onbekend" were replaced by NAs so R could identify them correctly as missing values. From the analysis of the data, we identified 554 rows which had mostly NA in all the columns or in the operation type column, so these rows were deleted. The columns Linker.ventrikel.functie, Nierfunctie, Euroscore2, CCS, NYHA and BMI were deleted from the data as they either had too many NAs or were having low or negative impact on the accuracy of regression. 
 
 The variables age, planned & actual operation, BMI, hospital bedding & IC duration, Euroscore 1&2 were transformed to of numeric type. This operation also included converting decimal comma to decimal point for R to properly interpret the numbers. 
 
-The data was diveded into four tables - Time, Operation, Patient and hospital. The time table was our fact table and the others were dimension tables. 
+The data was divided into four tables - Time, Operation, Patient and hospital. The time table was our fact table and the others were dimension tables. 
 -  The time table contained the actual time and the computed time difference, the two main variables we were looking at, along with other variables related to the time of the operation and the days the patient spent in the hospital. This way we were able to separate all variables related to time into one table.
-- Patient table contained all the charecteristics of the patient. These are individual to each patient and hence put in a separate table. A flaw in the data discovered here was that there was no track of operations per individual, this is further discussed in the Discussion section. 
-- Operation table was created to separate the individual operations performed during surgeries where there were multiple operations. All the operations left in the final dataset were created as coloumns, and data for each operation was filled in the as a 1 or 0. For opertaion rows with single operation surgeries, only one field was 1 and rest were 0, while for multiple operations surgeries, all the coloumns which were going to be performed were 1 and rest were 0. The num_of_ops variable was also added to the table and it indicated how many of the fields would be '1' in the row. 
+- Patient table contained all the characteristics of the patient. These are individual to each patient and hence put in a separate table. A flaw in the data discovered here was that there was no track of operations per individual, this is further discussed in the Discussion section. 
+- Operation table was created to separate the individual operations performed during surgeries where there were multiple operations. All the operations left in the final dataset were created as columns, and data for each operation was filled in the as a 1 or 0. For operation rows with single operation surgeries, only one field was 1 and rest were 0, while for multiple operations surgeries, all the columns which were going to be performed were 1 and rest were 0. The num_of_ops variable was also added to the table and it indicated how many of the fields would be '1' in the row. 
 - Hospital table contained variables which were related to the hospital. These are the variables on which the hospital as direct control over and can decide based on the nature of surgery and availability. 
 
 All the tables were combined together in one as the data in the regression function needs to be in a single dataframe in R. The final table contained 106 variables and was used to perform all the data mining operations. 
@@ -46,6 +46,10 @@ The reultant R^2 is not enough to predict accurately.
 
 Though there is an improvement in the predicted values, there is further study required to build an accrate predictive model.  
 
+limitations,
+Overfitting problem - the data prediction was performed on the same data as the trained data. So the introduction of new data may produce different results. 
+There were a number of rows deleted from the dataset. This creates a bias in the prediction as some important operation types are removed. For improving this, a more complete data set needs to be processed or there need to be reasonable approximation filled in the missign fields. 
+
 
 
 ## 6 SUMMARY 
@@ -58,11 +62,14 @@ Recommendation:
 
 Denton, B., Viapiano, J. & Vogl, A. Health Care Manage Sci (2007) 10: 13. https://doi.org/10.1007/s10729-006-9005-4 
 
+James, G., Witten, D., Hastie, T., Tibshirani, R.: An Introduction to Statistical Learning. Springer, New York (2013). https://doi.org/10.1007/978-1-4614-7138-7
+
 Pulido, R., Aguirre, A.M., Ortega-Mier, M. et al. BMC Health Serv Res (2014) 14: 464. https://doi.org/10.1186/1472-6963-14-464 
 
 Weiss, Rebecca, "The Impact of Block Scheduling and Release Time on Operating Room Efficiency" (2014).All Theses. 1875. https://tigerprints.clemson.edu/all_theses/1875
 
 Zheng Zhang & Xiaolan Xie (2015) Simulation-based optimization for surgery appointment scheduling of multiple operating rooms, IIE Transactions, 47:9, 998-1012, DOI: 10.1080/0740817X.2014.999900 
+
 
 
 ---------------------
