@@ -1,4 +1,32 @@
 
+#### File Distribution
+
+- project.R - contains code for reading the dataset, Data preparation, and uploading the data to the Database.
+  - Packages used:
+     1. dplyr
+     2. tidyverse
+     3. plyr
+     5. RPostgreSQL
+    
+    
+- dm.R - code for the data mining part of the project. Creating the formula, the dataset for modeling, and the four data models. Also will contian the sampling the dataset, training and testing the models.
+  - Packages used:
+    1. caret
+    2. rpart
+    3. rpart.plot
+    4. randomForest
+
+- plots.R - code for all the plots in the project. 
+  - Packages used:
+    1. ggplot2
+    
+- data/surgical_case_durations.csv - the dataset for the project.
+
+------------------
+
+### Report Text 
+
+
 ## 2 RELATED WORK
 
 Optimization of schedules falls under the study of Operation Research and there have been prior research done for optimization of the OR schedules at hospitals. Denton et al. (2007) highlighted the importance of schedule time and sequencing decisions on OR planning for the day. Recently more hospitals have started to use scheduling systems, like open-scheduling and block-scheduling, which were studied by Weiss (2014) who showed that it has resulted in better utilization of ORs but there has been a continued drive in improving it further. Pulido et al. (2014) concluded that the duration of surgery depends highly of the surgeon performing it, higher the expertise of the surgeon, lower would be the probability of delay. As TCT is a multiple OR hospital, we found a similar study by Zheng Zhang & Xiaolan Xie (2015) which was for scheduling the start time of surgeries in hospitals with multiple operation rooms. They concluded that "... optimal surgeon arrival times are quite different from those of a single OR and are highly dependent on OR number and surgery duration variability." 
@@ -76,37 +104,7 @@ Zheng Zhang & Xiaolan Xie (2015) Simulation-based optimization for surgery appoi
 
 
 ---------------------
-Content below this line does not go into the report.
 
 
-#### File Distribution
 
-- project.R - contains code for reading the dataset, Data preparation, and uploading the data to the Database.
-  - Packages used:
-     1. dplyr
-     2. tidyverse
-     3. plyr
-     5. RPostgreSQL
-    
-    
-- dm.R - code for the data mining part of the project. Creating the formula, the dataset for modeling, and the four data models. Also will contian the sampling the dataset, training and testing the models.
-  - Packages used:
-    1. caret
-    2. rpart
-    3. rpart.plot
-    4. randomForest
 
-- plots.R - code for all the plots in the project. 
-  - Packages used:
-    1. ggplot2
-    
-- data/surgical_case_durations.csv - the dataset for the project.
-
-##### TODO / Notes from the presentation 
-
-- Sampling, training and testing
-- make Math's equations of the formula
-- include reference/citations
-  - related to TCT
-  - related to OR-utilization
-- numbers in the tables to be max. 1 or 2 decimal places
